@@ -1,159 +1,123 @@
-# Turborepo starter
+# Online Party Game
 
-This Turborepo starter is maintained by the Turborepo core team.
+An online party game platform that serves multiple party games independently under a single domain.
+Currently developing **Spyfall** as the first game.
 
-## Using this example
+## Tech Stack
 
-Run the following command:
+| Category | Technology |
+|----------|-----------|
+| Frontend | Next.js 15 (App Router) + React 19 |
+| Realtime | Supabase Realtime (Broadcast + Presence) |
+| Database | Supabase (PostgreSQL) |
+| Auth | Supabase Auth (Anonymous / Guest) |
+| Monorepo | Turborepo + pnpm workspaces |
+| Deploy | Vercel (Multi-Zone) |
+| Language | TypeScript 5.9 |
 
-```sh
-npx create-turbo@latest
+## Architecture
+
+**Turborepo monorepo** + **Next.js Multi-Zone** architecture.
+Each game exists as an independent Next.js app, with Dashboard handling unified routing via rewrites.
+
+### Apps
+
+| App | Path | Port (dev) | Description |
+|-----|------|-----------|-------------|
+| `apps/dashboard` | `/` | 3000 | Game list, lobby, profile |
+| `apps/spyfall` | `/games/spyfall` | 3001 | Spyfall game (standalone app) |
+
+### Packages
+
+| Package | Description |
+|---------|-------------|
+| `packages/game-common` | Shared game utilities (timer, voting, room code generation) |
+| `packages/supabase` | Supabase client and Realtime (Broadcast/Presence) utilities |
+| `packages/ui` | Shared UI components |
+| `packages/eslint-config` | Shared ESLint configurations |
+| `packages/typescript-config` | Shared TypeScript configurations |
+
+## Project Structure
+
+```
+online-party-game/
+├── apps/
+│   ├── dashboard/                    # Main dashboard (basePath: /)
+│   │   ├── src/app/                  # Next.js App Router
+│   │   └── next.config.ts            # rewrites for game zone routing
+│   └── spyfall/                      # Spyfall game (basePath: /games/spyfall)
+│       ├── src/app/                  # Next.js App Router
+│       ├── public/images/            # Location/role card images
+│       └── next.config.ts            # basePath: /games/spyfall
+├── packages/
+│   ├── game-common/src/
+│   │   ├── types/                    # Shared types (Player, Room, VoteResult, etc.)
+│   │   ├── timer/                    # Timer utilities (create, start, remaining)
+│   │   ├── voting/                   # Vote calculation, tie-break resolution
+│   │   └── room/                     # Room code generation/validation
+│   ├── supabase/src/
+│   │   ├── client.ts                 # Supabase client initialization
+│   │   └── realtime.ts               # Broadcast, Presence utilities
+│   ├── ui/src/                       # Shared React UI components
+│   ├── eslint-config/                # ESLint configs (base, next.js)
+│   └── typescript-config/            # TS configs (base, nextjs, react-library)
+├── docs/spyfall/
+│   ├── requirements.md               # Full requirements document
+│   ├── game-rules.md                 # Game rules and flow diagrams
+│   └── locations.md                  # 15 locations with roles data
+└── .env.example                      # Supabase env template
 ```
 
-## What's inside?
+## Getting Started
 
-This Turborepo includes the following packages/apps:
+### Prerequisites
 
-### Apps and Packages
+- Node.js >= 18
+- pnpm 9.0.0 (`corepack enable` to activate)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Setup
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+```bash
+# Install dependencies
+pnpm install
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+# Copy environment variables
+cp .env.example .env.local
+# Edit .env.local with your Supabase credentials
 ```
 
-Without global `turbo`, use your package manager:
+### Development
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+# Run all apps simultaneously
+pnpm dev
+
+# Run specific app
+pnpm --filter dashboard dev    # port 3000
+pnpm --filter spyfall dev      # port 3001
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### Build & Quality
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
+```bash
+pnpm build          # Build all apps and packages
+pnpm lint           # Lint all packages
+pnpm check-types    # TypeScript check all packages
+pnpm format         # Format code with Prettier
 ```
 
-Without global `turbo`:
+## Environment Variables
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+Copy `.env.example` to `.env.local`:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
+SPYFALL_URL=http://localhost:3001  # dev only
 ```
 
-### Develop
+## Game Documentation
 
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- [Spyfall Requirements](docs/spyfall/requirements.md)
+- [Spyfall Game Rules](docs/spyfall/game-rules.md)
+- [Spyfall Locations](docs/spyfall/locations.md)
