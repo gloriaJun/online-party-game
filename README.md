@@ -59,12 +59,15 @@ online-party-game/
 
 ### Prerequisites
 
-- Node.js >= 18
-- pnpm 9.0.0 (`corepack enable` to activate)
+- Node.js 24 LTS (see `.nvmrc`)
+- pnpm (via Corepack — **npm/yarn are not supported**)
 
 ### Setup
 
 ```bash
+# Enable Corepack (activates pnpm from packageManager field)
+corepack enable
+
 # Install dependencies
 pnpm install
 
