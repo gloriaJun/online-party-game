@@ -1,13 +1,21 @@
 "use client";
 
-interface LocaleSwitcherProps {
-  currentLocale: string;
-  locales?: { value: string; label: string }[];
+import "flag-icons/css/flag-icons.min.css";
+
+interface LocaleOption {
+  value: string;
+  label: string;
+  countryCode: string;
 }
 
-const defaultLocales = [
-  { value: "en", label: "\u{1F1FA}\u{1F1F8} EN" },
-  { value: "ko", label: "\u{1F1F0}\u{1F1F7} KO" },
+interface LocaleSwitcherProps {
+  currentLocale: string;
+  locales?: LocaleOption[];
+}
+
+const defaultLocales: LocaleOption[] = [
+  { value: "en", label: "EN", countryCode: "us" },
+  { value: "ko", label: "KO", countryCode: "kr" },
 ];
 
 export const LocaleSwitcher = ({
@@ -20,16 +28,32 @@ export const LocaleSwitcher = ({
   }
 
   return (
-    <select
-      value={currentLocale}
-      onChange={(e) => handleChange(e.target.value)}
-      aria-label="Select language"
-    >
+    <div style={{ display: "flex", gap: "4px" }}>
       {locales.map((locale) => (
-        <option key={locale.value} value={locale.value}>
+        <button
+          key={locale.value}
+          onClick={() => handleChange(locale.value)}
+          disabled={currentLocale === locale.value}
+          aria-label={`Switch to ${locale.label}`}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            padding: "4px 8px",
+            border: "1px solid",
+            borderColor:
+              currentLocale === locale.value ? "#333" : "transparent",
+            borderRadius: "4px",
+            background: "none",
+            cursor:
+              currentLocale === locale.value ? "default" : "pointer",
+            opacity: currentLocale === locale.value ? 1 : 0.6,
+          }}
+        >
+          <span className={`fi fi-${locale.countryCode}`} />
           {locale.label}
-        </option>
+        </button>
       ))}
-    </select>
+    </div>
   );
 };
