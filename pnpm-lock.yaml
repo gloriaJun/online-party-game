@@ -20,6 +20,9 @@ importers:
 
   apps/dashboard:
     dependencies:
+      '@repo/game-common':
+        specifier: workspace:*
+        version: link:../../packages/game-common
       '@repo/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase

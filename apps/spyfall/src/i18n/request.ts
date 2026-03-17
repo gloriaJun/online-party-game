@@ -1,17 +1,14 @@
 import { getRequestConfig } from "next-intl/server";
 import { cookies, headers } from "next/headers";
+import {
+  defaultLocale,
+  isValidLocale,
+  LOCALE_COOKIE,
+} from "@repo/game-common";
 
-const locales = ["en", "ko"] as const;
-type Locale = (typeof locales)[number];
-const defaultLocale: Locale = "en";
-
-function isValidLocale(locale: string): locale is Locale {
-  return locales.includes(locale as Locale);
-}
-
-async function resolveLocale(): Promise<Locale> {
+async function resolveLocale() {
   const cookieStore = await cookies();
-  const cookieLocale = cookieStore.get("NEXT_LOCALE")?.value;
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value;
   if (cookieLocale && isValidLocale(cookieLocale)) {
     return cookieLocale;
   }

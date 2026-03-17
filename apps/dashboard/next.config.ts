@@ -4,7 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@repo/ui", "@repo/supabase"],
+  transpilePackages: ["@repo/ui", "@repo/game-common", "@repo/supabase"],
   async rewrites() {
     return [
       {

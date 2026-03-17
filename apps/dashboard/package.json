@@ -10,6 +10,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/game-common": "workspace:*",
     "@repo/supabase": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tailwindcss/postcss": "^4.2.1",
