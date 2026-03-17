@@ -41,31 +41,16 @@ Each game exists as an independent Next.js app, with Dashboard handling unified 
 
 ```
 online-party-game/
-├── apps/
-│   ├── dashboard/                    # Main dashboard (basePath: /)
-│   │   ├── src/app/                  # Next.js App Router
-│   │   └── next.config.ts            # rewrites for game zone routing
-│   └── spyfall/                      # Spyfall game (basePath: /games/spyfall)
-│       ├── src/app/                  # Next.js App Router
-│       ├── public/images/            # Location/role card images
-│       └── next.config.ts            # basePath: /games/spyfall
-├── packages/
-│   ├── game-common/src/
-│   │   ├── types/                    # Shared types (Player, Room, VoteResult, etc.)
-│   │   ├── timer/                    # Timer utilities (create, start, remaining)
-│   │   ├── voting/                   # Vote calculation, tie-break resolution
-│   │   └── room/                     # Room code generation/validation
-│   ├── supabase/src/
-│   │   ├── client.ts                 # Supabase client initialization
-│   │   └── realtime.ts               # Broadcast, Presence utilities
-│   ├── ui/src/                       # Shared React UI components
-│   ├── eslint-config/                # ESLint configs (base, next.js)
-│   └── typescript-config/            # TS configs (base, nextjs, react-library)
-├── docs/spyfall/
-│   ├── 01-requirements.md            # Full requirements document
-│   ├── 02-game-rules.md             # Game rules and flow diagrams
-│   └── 03-locations.md              # 15 locations with roles data
-└── .env.example                      # Supabase env template
+├── apps/                  # Independent Next.js apps
+│   ├── dashboard/         # Main dashboard (port 3000)
+│   └── spyfall/           # Spyfall game (port 3001)
+├── packages/              # Shared libraries
+│   ├── game-common/       # Game logic (timer, voting, room)
+│   ├── supabase/          # Supabase client & realtime
+│   ├── ui/                # Shared UI components
+│   ├── eslint-config/     # ESLint configurations
+│   └── typescript-config/ # TypeScript configurations
+└── docs/                  # Game documentation
 ```
 
 ## Getting Started
@@ -118,6 +103,4 @@ SPYFALL_URL=http://localhost:3001  # dev only
 
 ## Game Documentation
 
-- [Spyfall Requirements](docs/spyfall/01-requirements.md)
-- [Spyfall Game Rules](docs/spyfall/02-game-rules.md)
-- [Spyfall Locations](docs/spyfall/03-locations.md)
+- [Spyfall](docs/spyfall/)
