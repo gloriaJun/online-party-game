@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   ci:
-    name: Lint / Type-check / Build
+    name: Lint / Type-check / Test / Build
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +36,9 @@ jobs:
 
       - name: Type-check (affected)
         run: pnpm turbo run check-types --filter=...[origin/main]
+
+      - name: Test (affected)
+        run: pnpm turbo run test --filter=...[origin/main]
 
       - name: Build (affected)
         run: pnpm turbo run build --filter=...[origin/main]
