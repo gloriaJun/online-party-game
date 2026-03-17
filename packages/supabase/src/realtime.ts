@@ -1,4 +1,4 @@
-import { supabase } from "./client.js";
+import { supabase } from "./client";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
 export function joinGameRoom(roomCode: string): RealtimeChannel {
