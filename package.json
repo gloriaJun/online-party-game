@@ -2,6 +2,7 @@
   "name": "online-party-game",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
@@ -10,11 +11,9 @@
   },
   "devDependencies": {
     "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "turbo": "^2.8.17",
     "typescript": "5.9.2"
   },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
-  }
+  "packageManager": "pnpm@9.0.0"
 }

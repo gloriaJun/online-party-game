@@ -5,17 +5,17 @@ Currently developing **Spyfall** as the first game.
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Frontend | Next.js 15 (App Router) + React 19 |
-| Styling | Tailwind CSS v4 + shadcn/ui |
-| i18n | next-intl (English / Korean) |
+| Category | Technology                               |
+| -------- | ---------------------------------------- |
+| Frontend | Next.js 15 (App Router) + React 19       |
+| Styling  | Tailwind CSS v4 + shadcn/ui              |
+| i18n     | next-intl (English / Korean)             |
 | Realtime | Supabase Realtime (Broadcast + Presence) |
-| Database | Supabase (PostgreSQL) |
-| Auth | Supabase Auth (Anonymous / Guest) |
-| Monorepo | Turborepo + pnpm workspaces |
-| Deploy | Vercel (Multi-Zone) |
-| Language | TypeScript 5.9 |
+| Database | Supabase (PostgreSQL)                    |
+| Auth     | Supabase Auth (Anonymous / Guest)        |
+| Monorepo | Turborepo + pnpm workspaces              |
+| Deploy   | Vercel (Multi-Zone)                      |
+| Language | TypeScript 5.9                           |
 
 ## Architecture
 
@@ -24,10 +24,10 @@ Each game exists as an independent Next.js app, with Dashboard handling unified 
 
 ### Apps
 
-| App | Path | Port (dev) | Description |
-|-----|------|-----------|-------------|
-| `apps/dashboard` | `/` | 3000 | Game list, lobby, profile |
-| `apps/spyfall` | `/games/spyfall` | 3001 | Spyfall game (standalone app) |
+| App              | Path             | Port (dev) | Description                   |
+| ---------------- | ---------------- | ---------- | ----------------------------- |
+| `apps/dashboard` | `/`              | 3000       | Game list, lobby, profile     |
+| `apps/spyfall`   | `/games/spyfall` | 3001       | Spyfall game (standalone app) |
 
 ### Packages
 
@@ -59,12 +59,15 @@ online-party-game/
 
 ### Prerequisites
 
-- Node.js >= 18
-- pnpm 9.0.0 (`corepack enable` to activate)
+- Node.js 24 LTS (see `.nvmrc`)
+- pnpm (via Corepack — **npm/yarn are not supported**)
 
 ### Setup
 
 ```bash
+# Enable Corepack (activates pnpm from packageManager field)
+corepack enable
+
 # Install dependencies
 pnpm install
 

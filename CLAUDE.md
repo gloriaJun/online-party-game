@@ -29,6 +29,7 @@ pnpm format                           # Format with Prettier
 ### Multi-Zone Routing
 
 Dashboard acts as the main zone and routes to game apps via rewrites:
+
 - `apps/dashboard/next.config.ts` contains rewrite rules
 - Each game app has its own `basePath` for asset/route isolation
 - In production, Vercel handles zone routing automatically
@@ -58,9 +59,23 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 
 ### Workspace Dependencies
 
-- Apps import packages via `@repo/<package-name>` (workspace:*)
+- Apps import packages via `@repo/<package-name>` (workspace:\*)
 - `transpilePackages` in next.config.ts for package resolution
 - Shared types in `@repo/game-common/src/types/`
+
+## Code Quality
+
+### Prettier
+
+- Config: `.prettierrc` at repo root
+- Tailwind class sorting via `prettier-plugin-tailwindcss`
+- Run: `pnpm format` to format all files
+
+### CI (GitHub Actions)
+
+- Runs on PRs to `main` via `.github/workflows/ci.yml`
+- Uses Turborepo `--filter=...[origin/main]` to validate only affected packages
+- Steps: lint → type-check → build
 
 ## Conventions
 
