@@ -1,26 +1,15 @@
 import { getRequestConfig } from "next-intl/server";
 import { cookies, headers } from "next/headers";
-import {
-  defaultLocale,
-  isValidLocale,
-  LOCALE_COOKIE,
-} from "@repo/game-common";
+import { resolveLocaleFromHeaders, LOCALE_COOKIE } from "@repo/game-common";
 
 async function resolveLocale() {
   const cookieStore = await cookies();
-  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value;
-  if (cookieLocale && isValidLocale(cookieLocale)) {
-    return cookieLocale;
-  }
-
   const headerStore = await headers();
-  const acceptLanguage = headerStore.get("accept-language") ?? "";
-  const preferred = acceptLanguage.split(",")[0]?.split("-")[0]?.trim();
-  if (preferred && isValidLocale(preferred)) {
-    return preferred;
-  }
 
-  return defaultLocale;
+  return resolveLocaleFromHeaders(
+    cookieStore.get(LOCALE_COOKIE)?.value,
+    headerStore.get("accept-language") ?? ""
+  );
 }
 
 export default getRequestConfig(async () => {
