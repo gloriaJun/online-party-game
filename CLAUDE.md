@@ -63,6 +63,14 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - **Game rules**: See `docs/spyfall/02-game-rules.md`
 - **Location data**: See `docs/spyfall/03-locations.md` (15 locations, each with 8-12 roles)
 
+## Issue-Driven Workflow
+
+When an issue number is given to work on:
+
+1. **PRD First**: Write a PRD (Product Requirements Document) for the task and post it as a comment on the GitHub issue (`gh issue comment`)
+2. **Implement**: Create a feature branch (`feat/<issue-number>-<short-description>`), implement the task, and submit a PR
+3. **Update Docs**: After completion, update `README.md` and `docs/` (e.g., `docs/spyfall/`) if the changes require documentation updates
+
 ## Security
 
 - Never read or commit environment variable files such as `.env.local`, `.env`
