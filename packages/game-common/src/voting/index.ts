@@ -1,8 +1,6 @@
 import type { VoteResult, TieBreakRule } from "../types/index.js";
 
-export function calculateVoteResult(
-  votes: Record<string, string>
-): VoteResult {
+export function calculateVoteResult(votes: Record<string, string>): VoteResult {
   const voteCounts: Record<string, number> = {};
 
   for (const targetId of Object.values(votes)) {

@@ -5,15 +5,15 @@ Currently developing **Spyfall** as the first game.
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Frontend | Next.js 15 (App Router) + React 19 |
+| Category | Technology                               |
+| -------- | ---------------------------------------- |
+| Frontend | Next.js 15 (App Router) + React 19       |
 | Realtime | Supabase Realtime (Broadcast + Presence) |
-| Database | Supabase (PostgreSQL) |
-| Auth | Supabase Auth (Anonymous / Guest) |
-| Monorepo | Turborepo + pnpm workspaces |
-| Deploy | Vercel (Multi-Zone) |
-| Language | TypeScript 5.9 |
+| Database | Supabase (PostgreSQL)                    |
+| Auth     | Supabase Auth (Anonymous / Guest)        |
+| Monorepo | Turborepo + pnpm workspaces              |
+| Deploy   | Vercel (Multi-Zone)                      |
+| Language | TypeScript 5.9                           |
 
 ## Architecture
 
@@ -22,20 +22,20 @@ Each game exists as an independent Next.js app, with Dashboard handling unified 
 
 ### Apps
 
-| App | Path | Port (dev) | Description |
-|-----|------|-----------|-------------|
-| `apps/dashboard` | `/` | 3000 | Game list, lobby, profile |
-| `apps/spyfall` | `/games/spyfall` | 3001 | Spyfall game (standalone app) |
+| App              | Path             | Port (dev) | Description                   |
+| ---------------- | ---------------- | ---------- | ----------------------------- |
+| `apps/dashboard` | `/`              | 3000       | Game list, lobby, profile     |
+| `apps/spyfall`   | `/games/spyfall` | 3001       | Spyfall game (standalone app) |
 
 ### Packages
 
-| Package | Description |
-|---------|-------------|
-| `packages/game-common` | Shared game utilities (timer, voting, room code generation) |
-| `packages/supabase` | Supabase client and Realtime (Broadcast/Presence) utilities |
-| `packages/ui` | Shared UI components |
-| `packages/eslint-config` | Shared ESLint configurations |
-| `packages/typescript-config` | Shared TypeScript configurations |
+| Package                      | Description                                                 |
+| ---------------------------- | ----------------------------------------------------------- |
+| `packages/game-common`       | Shared game utilities (timer, voting, room code generation) |
+| `packages/supabase`          | Supabase client and Realtime (Broadcast/Presence) utilities |
+| `packages/ui`                | Shared UI components                                        |
+| `packages/eslint-config`     | Shared ESLint configurations                                |
+| `packages/typescript-config` | Shared TypeScript configurations                            |
 
 ## Project Structure
 

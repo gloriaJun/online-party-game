@@ -9,17 +9,20 @@ Spyfall is a social deduction party game where most players are assigned a share
 ## Roles
 
 ### Citizen
+
 - Knows the **location** and their assigned **role**
 - Can see the full list of roles at the location and maximum headcount per role
 - Goal: Identify the spy through strategic questioning
 
 ### Spy
+
 - Does **NOT** know the location
 - Sees only "You are the Spy" card
 - Goal: Avoid detection AND figure out the location
 - Gets one chance to guess the location if caught
 
 ### Moderator (Optional)
+
 - A designated player who controls the game flow
 - Manages turn order, starts voting, resolves disputes
 - If no moderator: system handles these automatically
@@ -95,9 +98,11 @@ Spyfall is a social deduction party game where most players are assigned a share
 ## Win Conditions
 
 ### Citizens Win
+
 - Successfully vote out the spy **AND** the spy fails to guess the location
 
 ### Spy Wins
+
 - Citizens vote out the wrong person
 - Vote results in a tie (when tie-break rule = "Spy Wins")
 - Spy is caught but correctly guesses the location
@@ -108,6 +113,7 @@ Spyfall is a social deduction party game where most players are assigned a share
 ## Discussion Rules
 
 ### Turn Structure
+
 1. A random starting player is selected
 2. The current player asks any other player a question about the location
 3. The questioned player must answer
@@ -115,6 +121,7 @@ Spyfall is a social deduction party game where most players are assigned a share
 5. Continue until timer expires or moderator calls for vote
 
 ### Question Guidelines
+
 - Questions should be vague enough to not reveal the location to the spy
 - But specific enough to confirm the other player knows the location
 - Examples:
@@ -132,17 +139,19 @@ Spyfall is a social deduction party game where most players are assigned a share
 5. The player with the most votes is accused
 
 ### Tie-Break Options
-| Rule | Effect |
-|------|--------|
-| Revote (Tied Only) | Only tied candidates are re-voted |
-| Revote (All) | Full revote with all candidates |
-| Spy Wins | Tie counts as failed vote, spy wins |
+
+| Rule               | Effect                              |
+| ------------------ | ----------------------------------- |
+| Revote (Tied Only) | Only tied candidates are re-voted   |
+| Revote (All)       | Full revote with all candidates     |
+| Spy Wins           | Tie counts as failed vote, spy wins |
 
 ---
 
 ## Spy's Location Guess
 
 When the spy is successfully voted out:
+
 1. The spy is revealed
 2. The spy gets **one chance** to guess the location
 3. The spy sees a list of all possible locations
@@ -154,6 +163,7 @@ When the spy is successfully voted out:
 ## Special Rules for 2 Spies
 
 When playing with 2 spies:
+
 - Both spies know each other's identity
 - Citizens must catch **both** spies to win
 - If one spy is caught, the second spy remains and the game continues
@@ -164,10 +174,10 @@ When playing with 2 spies:
 
 ## Moderator vs Auto Mode
 
-| Feature | With Moderator | Without Moderator |
-|---------|---------------|-------------------|
-| Turn order | Moderator decides | System auto-rotates |
-| Voting trigger | Moderator calls vote | Timer expiry or majority request |
-| Dispute resolution | Moderator decides | System rules apply |
-| Timer control | Moderator can pause/adjust | Auto-countdown only |
-| Game pace | Flexible | Fixed by timer |
+| Feature            | With Moderator             | Without Moderator                |
+| ------------------ | -------------------------- | -------------------------------- |
+| Turn order         | Moderator decides          | System auto-rotates              |
+| Voting trigger     | Moderator calls vote       | Timer expiry or majority request |
+| Dispute resolution | Moderator decides          | System rules apply               |
+| Timer control      | Moderator can pause/adjust | Auto-countdown only              |
+| Game pace          | Flexible                   | Fixed by timer                   |
