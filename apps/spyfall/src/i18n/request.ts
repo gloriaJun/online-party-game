@@ -18,9 +18,15 @@ async function resolveLocale(): Promise<Locale> {
 
   const headerStore = await headers();
   const acceptLanguage = headerStore.get("accept-language") ?? "";
-  const preferred = acceptLanguage.split(",")[0]?.split("-")[0]?.trim();
-  if (preferred && isValidLocale(preferred)) {
-    return preferred;
+  if (acceptLanguage) {
+    const languageRanges = acceptLanguage.split(",");
+    for (const range of languageRanges) {
+      const [languagePart] = range.split(";");
+      const baseLocale = languagePart.split("-")[0]?.trim();
+      if (baseLocale && isValidLocale(baseLocale)) {
+        return baseLocale;
+      }
+    }
   }
 
   return defaultLocale;
