@@ -10,12 +10,13 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "^15.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "@repo/game-common": "workspace:*",
     "@repo/supabase": "workspace:*",
-    "@repo/ui": "workspace:*"
+    "@repo/ui": "workspace:*",
+    "next": "^15.3.0",
+    "next-intl": "^4.8.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
