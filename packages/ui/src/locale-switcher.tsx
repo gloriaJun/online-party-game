@@ -6,8 +6,8 @@ interface LocaleSwitcherProps {
 }
 
 const defaultLocales = [
-  { value: "en", label: "EN" },
-  { value: "ko", label: "KO" },
+  { value: "en", label: "\u{1F1FA}\u{1F1F8} EN" },
+  { value: "ko", label: "\u{1F1F0}\u{1F1F7} KO" },
 ];
 
 export const LocaleSwitcher = ({
