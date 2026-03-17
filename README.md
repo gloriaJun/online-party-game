@@ -62,9 +62,9 @@ online-party-game/
 │   ├── eslint-config/                # ESLint configs (base, next.js)
 │   └── typescript-config/            # TS configs (base, nextjs, react-library)
 ├── docs/spyfall/
-│   ├── requirements.md               # Full requirements document
-│   ├── game-rules.md                 # Game rules and flow diagrams
-│   └── locations.md                  # 15 locations with roles data
+│   ├── 01-requirements.md            # Full requirements document
+│   ├── 02-game-rules.md             # Game rules and flow diagrams
+│   └── 03-locations.md              # 15 locations with roles data
 └── .env.example                      # Supabase env template
 ```
 
@@ -118,6 +118,6 @@ SPYFALL_URL=http://localhost:3001  # dev only
 
 ## Game Documentation
 
-- [Spyfall Requirements](docs/spyfall/requirements.md)
-- [Spyfall Game Rules](docs/spyfall/game-rules.md)
-- [Spyfall Locations](docs/spyfall/locations.md)
+- [Spyfall Requirements](docs/spyfall/01-requirements.md)
+- [Spyfall Game Rules](docs/spyfall/02-game-rules.md)
+- [Spyfall Locations](docs/spyfall/03-locations.md)

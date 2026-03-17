@@ -59,9 +59,9 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 
 - **Players**: 4~12 (spy count auto-recommended by player count)
 - **Game flow**: Lobby → Role Reveal → Discussion → Voting → Spy Guess → Result
-- **Full requirements**: See `docs/spyfall/requirements.md`
-- **Game rules**: See `docs/spyfall/game-rules.md`
-- **Location data**: See `docs/spyfall/locations.md` (15 locations, each with 8-12 roles)
+- **Full requirements**: See `docs/spyfall/01-requirements.md`
+- **Game rules**: See `docs/spyfall/02-game-rules.md`
+- **Location data**: See `docs/spyfall/03-locations.md` (15 locations, each with 8-12 roles)
 
 ## Security
 
