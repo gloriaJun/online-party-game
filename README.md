@@ -8,6 +8,8 @@ Currently developing **Spyfall** as the first game.
 | Category | Technology |
 |----------|-----------|
 | Frontend | Next.js 15 (App Router) + React 19 |
+| Styling | Tailwind CSS v4 + shadcn/ui |
+| i18n | next-intl (English / Korean) |
 | Realtime | Supabase Realtime (Broadcast + Presence) |
 | Database | Supabase (PostgreSQL) |
 | Auth | Supabase Auth (Anonymous / Guest) |
@@ -33,7 +35,7 @@ Each game exists as an independent Next.js app, with Dashboard handling unified 
 |---------|-------------|
 | `packages/game-common` | Shared game utilities (timer, voting, room code generation) |
 | `packages/supabase` | Supabase client and Realtime (Broadcast/Presence) utilities |
-| `packages/ui` | Shared UI components |
+| `packages/ui` | Shared UI components (shadcn/ui + Tailwind CSS) |
 | `packages/eslint-config` | Shared ESLint configurations |
 | `packages/typescript-config` | Shared TypeScript configurations |
 
