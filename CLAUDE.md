@@ -40,6 +40,23 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - **Presence**: Player connection tracking (join/leave/reconnect)
 - Channel naming: `room:{roomCode}`
 
+### i18n (Internationalization)
+
+- **Library**: `next-intl` (configured per-app, no shared i18n package)
+- **Locale resolution**: `NEXT_LOCALE` cookie → `Accept-Language` header → default `en`
+- **Routing**: Cookie/header-based (no URL path prefix) — avoids link sharing forcing sender's language
+- **Translation files**: `apps/<app>/messages/{en,ko}.json`
+- **Usage**: `useTranslations()` in components, `getTranslations()` in server components/metadata
+- **Adding strings**: Add keys to both `en.json` and `ko.json` simultaneously
+
+### Styling
+
+- **Tailwind CSS v4** with PostCSS in each app
+- **shadcn/ui** components in `@repo/ui` (New York style, CSS variables)
+- **`cn()` utility**: `@repo/ui/lib/utils` for conditional class merging
+- **Adding shadcn components**: `npx shadcn add <component>` from `packages/ui/`
+- **Theme variables**: Defined in each app's `globals.css` under `@theme`
+
 ### Workspace Dependencies
 
 - Apps import packages via `@repo/<package-name>` (workspace:\*)

@@ -1,8 +1,12 @@
+import { useTranslations } from "next-intl";
+
 export default function Home() {
+  const t = useTranslations("game");
+
   return (
     <main>
-      <h1>Spyfall</h1>
-      <p>Online Party Game - Coming Soon</p>
+      <h1>{t("title")}</h1>
+      <p>{t("subtitle")}</p>
     </main>
   );
 }

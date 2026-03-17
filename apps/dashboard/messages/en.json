@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "title": "Online Party Games",
+    "description": "Play party games with friends online!"
+  },
+  "home": {
+    "title": "Online Party Games",
+    "subtitle": "Choose a game to play with friends",
+    "players": "{min}-{max} players"
+  },
+  "games": {
+    "spyfall": {
+      "name": "Spyfall",
+      "description": "Find the spy among your friends!"
+    }
+  }
+}

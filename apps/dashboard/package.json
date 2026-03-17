@@ -10,11 +10,16 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/game-common": "workspace:*",
+    "@repo/supabase": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@tailwindcss/postcss": "^4.2.1",
     "next": "^15.3.0",
+    "next-intl": "^4.8.3",
+    "postcss": "^8.5.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@repo/ui": "workspace:*",
-    "@repo/supabase": "workspace:*"
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
