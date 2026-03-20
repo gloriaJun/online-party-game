@@ -4,6 +4,7 @@ import "./globals.css";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@repo/ui/locale-switcher";
 import { ThemeProvider } from "@repo/ui/theme-provider";
+import { ThemeToggle } from "@repo/ui/theme-toggle";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("metadata");
@@ -31,7 +32,8 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <header>
+            <header className="flex items-center justify-end gap-2 p-4">
+              <ThemeToggle />
               <LocaleSwitcher currentLocale={locale} />
             </header>
             {children}
