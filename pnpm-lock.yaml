@@ -251,6 +251,9 @@ importers:
       eslint:
         specifier: ^9.39.1
         version: 9.39.4(jiti@2.6.1)
+      next:
+        specifier: ^15.3.0
+        version: 15.5.13(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       typescript:
         specifier: 5.9.2
         version: 5.9.2

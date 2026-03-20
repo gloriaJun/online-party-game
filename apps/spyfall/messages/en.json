@@ -3,6 +3,9 @@
     "title": "Spyfall - Online Party Game",
     "description": "Play Spyfall with friends online. Find the spy before time runs out!"
   },
+  "common": {
+    "back": "Back"
+  },
   "game": {
     "title": "Spyfall",
     "subtitle": "Online Party Game - Coming Soon"

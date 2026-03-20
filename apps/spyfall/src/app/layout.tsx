@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import { GameLayout } from "@repo/ui/game-layout";
 import { LocaleSwitcher } from "@repo/ui/locale-switcher";
 import { ThemeProvider } from "@repo/ui/theme-provider";
 import { ThemeToggle } from "@repo/ui/theme-toggle";
@@ -14,6 +15,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+function HeaderRight({ locale }: Readonly<{ locale: string }>) {
+  return (
+    <div className="flex items-center gap-2">
+      <ThemeToggle />
+      <LocaleSwitcher currentLocale={locale} />
+    </div>
+  );
+}
+
 export default async function RootLayout({
   children,
 }: {
@@ -21,10 +31,11 @@ export default async function RootLayout({
 }) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const t = await getTranslations("common");
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="bg-background font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -32,11 +43,14 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <header className="flex items-center justify-end gap-2 p-4">
-              <ThemeToggle />
-              <LocaleSwitcher currentLocale={locale} />
-            </header>
-            {children}
+            <GameLayout
+              gameTitle="Spyfall"
+              gameIcon="🕵️"
+              backLabel={t("back")}
+              headerRight={<HeaderRight locale={locale} />}
+            >
+              {children}
+            </GameLayout>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
