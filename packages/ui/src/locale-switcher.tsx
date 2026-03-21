@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { Globe } from "lucide-react";
 import "flag-icons/css/flag-icons.min.css";
 
 interface LocaleOption {
@@ -22,38 +24,63 @@ export const LocaleSwitcher = ({
   currentLocale,
   locales = defaultLocales,
 }: LocaleSwitcherProps) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const currentOption = locales.find((l) => l.value === currentLocale);
+
   function handleChange(locale: string) {
     document.cookie = `NEXT_LOCALE=${locale};path=/;max-age=31536000`;
     window.location.reload();
   }
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <div style={{ display: "flex", gap: "4px" }}>
-      {locales.map((locale) => (
-        <button
-          key={locale.value}
-          onClick={() => handleChange(locale.value)}
-          disabled={currentLocale === locale.value}
-          aria-label={`Switch to ${locale.label}`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "4px",
-            padding: "4px 8px",
-            border: "1px solid",
-            borderColor:
-              currentLocale === locale.value ? "#333" : "transparent",
-            borderRadius: "4px",
-            background: "none",
-            cursor:
-              currentLocale === locale.value ? "default" : "pointer",
-            opacity: currentLocale === locale.value ? 1 : 0.6,
-          }}
-        >
-          <span className={`fi fi-${locale.countryCode}`} />
-          {locale.label}
-        </button>
-      ))}
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="inline-flex h-9 items-center gap-1.5 rounded-md border border-border bg-background px-2.5 text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        aria-label="Change language"
+        aria-expanded={open}
+      >
+        <Globe className="h-4 w-4" />
+        {currentOption && (
+          <span className={`fi fi-${currentOption.countryCode}`} />
+        )}
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full z-50 mt-1 min-w-[120px] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-md">
+          {locales.map((locale) => (
+            <button
+              key={locale.value}
+              onClick={() => {
+                if (locale.value !== currentLocale) {
+                  handleChange(locale.value);
+                }
+                setOpen(false);
+              }}
+              className={`flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors ${
+                locale.value === currentLocale
+                  ? "bg-accent font-medium text-accent-foreground"
+                  : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"
+              }`}
+            >
+              <span className={`fi fi-${locale.countryCode}`} />
+              {locale.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

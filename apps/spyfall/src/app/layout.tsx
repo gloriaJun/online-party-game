@@ -46,7 +46,9 @@ export default async function RootLayout({
             <GameLayout
               gameTitle="Spyfall"
               gameIcon="🕵️"
+              backHref="/"
               backLabel={t("back")}
+              homeHref="/"
               headerRight={<HeaderRight locale={locale} />}
             >
               {children}
