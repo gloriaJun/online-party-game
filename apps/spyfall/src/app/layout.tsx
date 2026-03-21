@@ -31,7 +31,6 @@ export default async function RootLayout({
 }) {
   const locale = await getLocale();
   const messages = await getMessages();
-  const t = await getTranslations("common");
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -47,7 +46,6 @@ export default async function RootLayout({
               gameTitle="Spyfall"
               gameIcon="🕵️"
               backHref="/"
-              backLabel={t("back")}
               homeHref="/"
               headerRight={<HeaderRight locale={locale} />}
             >

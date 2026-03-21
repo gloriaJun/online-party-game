@@ -9,7 +9,6 @@ interface GameLayoutProps {
   gameTitle: string;
   gameIcon?: React.ReactNode;
   backHref?: string;
-  backLabel?: string;
   homeHref?: string;
   sidebar?: React.ReactNode;
   className?: string;
@@ -21,7 +20,6 @@ export function GameLayout({
   gameTitle,
   gameIcon,
   backHref,
-  backLabel = "Back",
   homeHref,
   sidebar,
   className,
@@ -35,11 +33,10 @@ export function GameLayout({
           {backHref && (
             <Link
               href={backHref}
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground md:hidden"
-              aria-label={backLabel}
+              className="inline-flex items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground md:hidden"
+              aria-label="Back"
             >
-              <ChevronLeft className="h-4 w-4" />
-              <span>{backLabel}</span>
+              <ChevronLeft className="h-5 w-5" />
             </Link>
           )}
 
