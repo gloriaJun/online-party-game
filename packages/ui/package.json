@@ -7,7 +7,8 @@
       "./src/*.tsx",
       "./src/*.ts"
     ],
-    "./lib/*": "./src/lib/*.ts"
+    "./lib/*": "./src/lib/*.ts",
+    "./styles/*": "./src/styles/*.css"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

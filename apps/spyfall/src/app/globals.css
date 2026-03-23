@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../../../../packages/ui/src/styles/base-theme.css";
 
 @source "../../../../packages/ui/src/**/*.{ts,tsx}";
 
@@ -8,15 +9,12 @@
  * Electric Blue CIA Theme
  * Dark Mode: "Deep Operations" — Slate-950 base + Sky-400 neon glow
  * Light Mode: "Intelligence Report" — Slate-50 base + Sky-600 accent
+ *
+ * Overrides base theme (Dashboard Neutral) with Spyfall-specific colors.
  */
 
 /* ── Light Mode (Intelligence Report) ── */
 @theme {
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
-    Roboto, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-
   --color-background: #f8fafc;
   --color-foreground: #0f172a;
 
@@ -59,11 +57,6 @@
   --color-sidebar-accent-foreground: #0c4a6e;
   --color-sidebar-border: #cbd5e1;
   --color-sidebar-ring: #0284c7;
-
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
 }
 
 /* ── Dark Mode (Deep Operations) ── */
@@ -111,13 +104,5 @@
     --color-sidebar-accent-foreground: #e0f2fe;
     --color-sidebar-border: #1e293b;
     --color-sidebar-ring: #38bdf8;
-  }
-
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
