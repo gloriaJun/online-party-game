@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { generateRoomCode, isValidRoomCode } from "@repo/game-common";
 import { Button } from "@repo/ui/button";
@@ -15,8 +15,10 @@ import { FormSection } from "@repo/ui/form-section";
 export function RoomLanding() {
   const t = useTranslations("landing");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialRoomCode = searchParams.get("roomCode") ?? "";
   const [nickname, setNickname] = useState("");
-  const [roomCode, setRoomCode] = useState("");
+  const [roomCode, setRoomCode] = useState(initialRoomCode);
   const [roomCodeError, setRoomCodeError] = useState("");
 
   const navigateToLobby = (code: string) => {

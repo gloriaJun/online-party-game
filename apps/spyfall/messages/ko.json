@@ -27,6 +27,8 @@
   },
   "lobby": {
     "title": "게임 로비",
-    "waitingForPlayers": "플레이어 참여를 기다리는 중..."
+    "waitingForPlayers": "플레이어 참여를 기다리는 중...",
+    "copyInviteLink": "초대 링크 복사",
+    "linkCopied": "링크가 복사되었습니다!"
   }
 }

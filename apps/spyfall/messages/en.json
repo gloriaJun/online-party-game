@@ -27,6 +27,8 @@
   },
   "lobby": {
     "title": "Game Lobby",
-    "waitingForPlayers": "Waiting for players to join..."
+    "waitingForPlayers": "Waiting for players to join...",
+    "copyInviteLink": "Copy Invite Link",
+    "linkCopied": "Link Copied!"
   }
 }
