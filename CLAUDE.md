@@ -13,6 +13,7 @@ pnpm build                            # Build all apps and packages
 pnpm lint                             # Lint all packages
 pnpm check-types                      # TypeScript check all packages
 pnpm format                           # Format with Prettier
+pnpm --filter @repo/ui storybook      # Run Storybook (UI components)
 ```
 
 ## Development Patterns
@@ -55,7 +56,9 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - **shadcn/ui** components in `@repo/ui` (New York style, CSS variables)
 - **`cn()` utility**: `@repo/ui/lib/utils` for conditional class merging
 - **Adding shadcn components**: `npx shadcn add <component>` from `packages/ui/`
-- **Theme variables**: Defined in each app's `globals.css` under `@theme`
+- **Base theme**: `packages/ui/src/styles/base-theme.css` (Dashboard Neutral Theme, Zinc/Slate)
+- **Theme override**: Each app imports base theme via `@import`, then overrides app-specific variables in `globals.css`
+- **Storybook**: `packages/ui/` — shared component development & documentation, dark/light mode toggle supported
 
 ### Workspace Dependencies
 
