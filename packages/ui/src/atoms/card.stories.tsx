@@ -12,7 +12,7 @@ import { Input } from "./input";
 import { Label } from "./label";
 
 const meta = {
-  title: "Components/Card",
+  title: "Atoms/Card",
   component: Card,
 } satisfies Meta<typeof Card>;
 

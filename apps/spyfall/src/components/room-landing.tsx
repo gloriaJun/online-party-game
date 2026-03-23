@@ -6,13 +6,10 @@ import { isValidRoomCode } from "@repo/game-common";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
-import { Separator } from "@repo/ui/separator";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@repo/ui/card";
+import { Card } from "@repo/ui/card";
+import { RoomCodeInput } from "@repo/ui/room-code-input";
+import { SectionDivider } from "@repo/ui/section-divider";
+import { FormSection } from "@repo/ui/form-section";
 
 export function RoomLanding() {
   const t = useTranslations("landing");
@@ -34,8 +31,7 @@ export function RoomLanding() {
     // TODO: Implement room joining with Supabase
   };
 
-  const handleRoomCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const handleRoomCodeChange = (value: string) => {
     setRoomCode(value);
     if (roomCodeError) setRoomCodeError("");
   };
@@ -58,65 +54,45 @@ export function RoomLanding() {
       </div>
 
       {/* Create Room Section */}
-      <Card className="mb-6">
-        <CardContent className="p-4">
-          <CardTitle className="mb-1 text-center">
-            {t("createRoom.title")}
-          </CardTitle>
-          <CardDescription className="mb-4 text-center">
-            {t("createRoom.description")}
-          </CardDescription>
-          <Button
-            className="w-full"
-            disabled={!hasNickname}
-            onClick={handleCreateRoom}
-          >
-            {t("createRoom.submit")}
-          </Button>
-        </CardContent>
-      </Card>
+      <FormSection
+        title={t("createRoom.title")}
+        description={t("createRoom.description")}
+        className="mb-6"
+      >
+        <Button
+          className="w-full"
+          disabled={!hasNickname}
+          onClick={handleCreateRoom}
+        >
+          {t("createRoom.submit")}
+        </Button>
+      </FormSection>
 
       {/* Divider */}
-      <div className="flex items-center gap-4 mb-6">
-        <Separator className="flex-1" />
-        <span className="text-sm text-muted-foreground">{t("or")}</span>
-        <Separator className="flex-1" />
-      </div>
+      <SectionDivider label={t("or")} className="mb-6" />
 
       {/* Join Room Section */}
-      <Card>
-        <CardContent className="p-4">
-          <CardTitle className="mb-1 text-center">
-            {t("joinRoom.title")}
-          </CardTitle>
-          <CardDescription className="mb-4 text-center">
-            {t("joinRoom.description")}
-          </CardDescription>
-          <div className="mb-4">
-            <Label htmlFor="room-code">{t("joinRoom.roomCode")}</Label>
-            <Input
-              id="room-code"
-              placeholder={t("joinRoom.roomCodePlaceholder")}
-              value={roomCode}
-              onChange={handleRoomCodeChange}
-              maxLength={6}
-              className="mt-2 font-mono text-lg tracking-widest text-center uppercase"
-            />
-            {roomCodeError && (
-              <p className="mt-1.5 text-sm text-destructive">
-                {roomCodeError}
-              </p>
-            )}
-          </div>
-          <Button
-            className="w-full"
-            disabled={!hasNickname || roomCode.length !== 6}
-            onClick={handleJoinRoom}
-          >
-            {t("joinRoom.submit")}
-          </Button>
-        </CardContent>
-      </Card>
+      <FormSection
+        title={t("joinRoom.title")}
+        description={t("joinRoom.description")}
+      >
+        <div className="mb-4">
+          <RoomCodeInput
+            value={roomCode}
+            onChange={handleRoomCodeChange}
+            label={t("joinRoom.roomCode")}
+            placeholder={t("joinRoom.roomCodePlaceholder")}
+            error={roomCodeError}
+          />
+        </div>
+        <Button
+          className="w-full"
+          disabled={!hasNickname || roomCode.length !== 6}
+          onClick={handleJoinRoom}
+        >
+          {t("joinRoom.submit")}
+        </Button>
+      </FormSection>
     </Card>
   );
 }

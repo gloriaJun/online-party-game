@@ -55,10 +55,23 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - **Tailwind CSS v4** with PostCSS in each app
 - **shadcn/ui** components in `@repo/ui` (New York style, CSS variables)
 - **`cn()` utility**: `@repo/ui/lib/utils` for conditional class merging
-- **Adding shadcn components**: `npx shadcn add <component>` from `packages/ui/`
 - **Base theme**: `packages/ui/src/styles/base-theme.css` (Dashboard Neutral Theme, Zinc/Slate)
 - **Theme override**: Each app imports base theme via `@import`, then overrides app-specific variables in `globals.css`
 - **Storybook**: `packages/ui/` — shared component development & documentation, dark/light mode toggle supported
+
+### UI Component Architecture (Atomic Design)
+
+`packages/ui/src/` follows atomic design structure:
+
+- **`atoms/`** — Base UI primitives (Button, Input, Card, Label, Separator). Include built-in interaction styles (focus ring, hover transitions, active feedback). Apps customize via CSS variables (color, radius) only.
+- **`molecules/`** — Composed components combining atoms (RoomCodeInput, SectionDivider, FormSection). Reusable patterns shared across game apps.
+- **`organisms/`** — Complex layout/feature components (GameLayout, LocaleSwitcher, ThemeToggle, ThemeProvider).
+
+**Import convention**: External imports stay flat — `@repo/ui/button`, not `@repo/ui/atoms/button`. Internal routing is handled by `package.json` exports.
+
+**Adding shadcn components**: `pnpm dlx shadcn@latest add <component> --path src/atoms` from `packages/ui/`
+
+**Adding new components**: Create the component in the appropriate atomic folder, then add an export entry in `packages/ui/package.json`.
 
 ### Workspace Dependencies
 

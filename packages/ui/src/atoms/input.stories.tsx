@@ -3,7 +3,7 @@ import { Input } from "./input";
 import { Label } from "./label";
 
 const meta = {
-  title: "Components/Input",
+  title: "Atoms/Input",
   component: Input,
   args: {
     placeholder: "Enter text...",

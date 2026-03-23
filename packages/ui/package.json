@@ -3,10 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": [
-      "./src/*.tsx",
-      "./src/*.ts"
-    ],
+    "./button": "./src/atoms/button.tsx",
+    "./card": "./src/atoms/card.tsx",
+    "./input": "./src/atoms/input.tsx",
+    "./label": "./src/atoms/label.tsx",
+    "./separator": "./src/atoms/separator.tsx",
+    "./code": "./src/atoms/code.tsx",
+    "./game-layout": "./src/organisms/game-layout.tsx",
+    "./locale-switcher": "./src/organisms/locale-switcher.tsx",
+    "./theme-provider": "./src/organisms/theme-provider.tsx",
+    "./theme-toggle": "./src/organisms/theme-toggle.tsx",
+    "./room-code-input": "./src/molecules/room-code-input.tsx",
+    "./section-divider": "./src/molecules/section-divider.tsx",
+    "./form-section": "./src/molecules/form-section.tsx",
     "./lib/*": "./src/lib/*.ts",
     "./styles/*": "./src/styles/*.css"
   },
