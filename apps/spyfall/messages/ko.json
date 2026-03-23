@@ -6,5 +6,25 @@
   "game": {
     "title": "스파이폴",
     "subtitle": "온라인 파티 게임 - 준비 중"
+  },
+  "landing": {
+    "createRoom": {
+      "title": "방 만들기",
+      "description": "새 게임 방을 만들고 친구를 초대하세요",
+      "nickname": "닉네임",
+      "nicknamePlaceholder": "닉네임을 입력하세요",
+      "submit": "방 만들기"
+    },
+    "joinRoom": {
+      "title": "방 참여",
+      "description": "방 코드를 입력하여 기존 게임에 참여하세요",
+      "roomCode": "방 코드",
+      "roomCodePlaceholder": "예: ABC123",
+      "nickname": "닉네임",
+      "nicknamePlaceholder": "닉네임을 입력하세요",
+      "submit": "방 참여",
+      "invalidRoomCode": "방 코드는 영문/숫자 6자리여야 합니다"
+    },
+    "or": "또는"
   }
 }
