@@ -1,8 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { isValidRoomCode } from "@repo/game-common";
+import { generateRoomCode, isValidRoomCode } from "@repo/game-common";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
@@ -13,13 +14,20 @@ import { FormSection } from "@repo/ui/form-section";
 
 export function RoomLanding() {
   const t = useTranslations("landing");
+  const router = useRouter();
   const [nickname, setNickname] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [roomCodeError, setRoomCodeError] = useState("");
 
+  const navigateToLobby = (code: string) => {
+    const params = new URLSearchParams({ nickname: nickname.trim() });
+    router.push(`/lobby/${code}?${params.toString()}`);
+  };
+
   const handleCreateRoom = () => {
     if (!nickname.trim()) return;
-    // TODO: Implement room creation with Supabase
+    const code = generateRoomCode();
+    navigateToLobby(code);
   };
 
   const handleJoinRoom = () => {
@@ -28,7 +36,7 @@ export function RoomLanding() {
       setRoomCodeError(t("joinRoom.invalidRoomCode"));
       return;
     }
-    // TODO: Implement room joining with Supabase
+    navigateToLobby(roomCode);
   };
 
   const handleRoomCodeChange = (value: string) => {

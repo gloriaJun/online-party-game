@@ -24,5 +24,9 @@
       "invalidRoomCode": "방 코드는 영문/숫자 6자리여야 합니다"
     },
     "or": "또는"
+  },
+  "lobby": {
+    "title": "게임 로비",
+    "waitingForPlayers": "플레이어 참여를 기다리는 중..."
   }
 }

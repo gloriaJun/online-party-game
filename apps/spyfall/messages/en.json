@@ -24,5 +24,9 @@
       "invalidRoomCode": "Room code must be 6 characters (letters and numbers)"
     },
     "or": "OR"
+  },
+  "lobby": {
+    "title": "Game Lobby",
+    "waitingForPlayers": "Waiting for players to join..."
   }
 }
