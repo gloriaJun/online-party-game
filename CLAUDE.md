@@ -13,6 +13,9 @@ pnpm build                            # Build all apps and packages
 pnpm lint                             # Lint all packages
 pnpm check-types                      # TypeScript check all packages
 pnpm format                           # Format with Prettier
+pnpm --filter @repo/ui storybook      # Run Storybook (UI components)
+pnpm --filter spyfall test:e2e        # Run E2E tests (headless)
+pnpm --filter spyfall test:e2e:ui     # Run E2E tests (interactive UI)
 ```
 
 ## Development Patterns
@@ -54,8 +57,23 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - **Tailwind CSS v4** with PostCSS in each app
 - **shadcn/ui** components in `@repo/ui` (New York style, CSS variables)
 - **`cn()` utility**: `@repo/ui/lib/utils` for conditional class merging
-- **Adding shadcn components**: `npx shadcn add <component>` from `packages/ui/`
-- **Theme variables**: Defined in each app's `globals.css` under `@theme`
+- **Base theme**: `packages/ui/src/styles/base-theme.css` (Dashboard Neutral Theme, Zinc/Slate)
+- **Theme override**: Each app imports base theme via `@import`, then overrides app-specific variables in `globals.css`
+- **Storybook**: `packages/ui/` — shared component development & documentation, dark/light mode toggle supported
+
+### UI Component Architecture (Atomic Design)
+
+`packages/ui/src/` follows atomic design structure:
+
+- **`atoms/`** — Base UI primitives (Button, Input, Card, Label, Separator). Include built-in interaction styles (focus ring, hover transitions, active feedback). Apps customize via CSS variables (color, radius) only.
+- **`molecules/`** — Composed components combining atoms (RoomCodeInput, SectionDivider, FormSection). Reusable patterns shared across game apps.
+- **`organisms/`** — Complex layout/feature components (GameLayout, LocaleSwitcher, ThemeToggle, ThemeProvider).
+
+**Import convention**: External imports stay flat — `@repo/ui/button`, not `@repo/ui/atoms/button`. Internal routing is handled by `package.json` exports.
+
+**Adding shadcn components**: `pnpm dlx shadcn@latest add <component> --path src/atoms` from `packages/ui/`
+
+**Adding new components**: Create the component in the appropriate atomic folder, then add an export entry in `packages/ui/package.json`.
 
 ### Workspace Dependencies
 
@@ -71,11 +89,21 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - Tailwind class sorting via `prettier-plugin-tailwindcss`
 - Run: `pnpm format` to format all files
 
+### E2E Testing (Playwright)
+
+- **Location**: `apps/<app>/e2e/` — per-app E2E tests
+- **Config**: `apps/<app>/playwright.config.ts`
+- **Run**: `pnpm --filter <app> test:e2e` (headless) or `test:e2e:ui` (interactive)
+- **When to write E2E tests**: Every user-facing feature should include E2E tests covering the critical user flows (navigation, form validation, i18n)
+- **Selectors**: Prefer accessible selectors (`getByRole`, `getByLabel`, `getByText`) over CSS selectors or test IDs
+- **i18n testing**: Use `NEXT_LOCALE` cookie to test locale switching
+- **CI**: E2E tests run after lint/type-check/build in a separate job with Playwright browsers installed
+
 ### CI (GitHub Actions)
 
 - Runs on PRs to `main` via `.github/workflows/ci.yml`
 - Uses Turborepo `--filter=...[origin/main]` to validate only affected packages
-- Steps: lint → type-check → build
+- Steps: lint → type-check → build → E2E tests
 
 ## Conventions
 

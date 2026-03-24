@@ -42,3 +42,38 @@ jobs:
 
       - name: Build (affected)
         run: pnpm turbo run build --filter=...[origin/main]
+
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm --filter spyfall exec playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: pnpm --filter spyfall test:e2e
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: apps/spyfall/playwright-report/
+          retention-days: 14

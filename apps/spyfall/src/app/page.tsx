@@ -1,12 +1,12 @@
-import { useTranslations } from "next-intl";
+import { Suspense } from "react";
+import { RoomLanding } from "@/components/room-landing";
 
 export default function Home() {
-  const t = useTranslations("game");
-
   return (
-    <main>
-      <h1>{t("title")}</h1>
-      <p>{t("subtitle")}</p>
+    <main className="flex flex-1 items-center justify-center p-4">
+      <Suspense>
+        <RoomLanding />
+      </Suspense>
     </main>
   );
 }

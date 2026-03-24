@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "./base-theme.css";
+@source "../../src/**/*.{ts,tsx}";
+@custom-variant dark (&:is(.dark *));

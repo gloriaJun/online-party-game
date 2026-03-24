@@ -6,5 +6,29 @@
   "game": {
     "title": "Spyfall",
     "subtitle": "Online Party Game - Coming Soon"
+  },
+  "landing": {
+    "nickname": "Nickname",
+    "nicknamePlaceholder": "Enter your nickname",
+    "createRoom": {
+      "title": "Create Room",
+      "description": "Start a new game room and invite friends",
+      "submit": "Create Room"
+    },
+    "joinRoom": {
+      "title": "Join Room",
+      "description": "Enter a room code to join an existing game",
+      "roomCode": "Room Code",
+      "roomCodePlaceholder": "e.g. ABC123",
+      "submit": "Join Room",
+      "invalidRoomCode": "Room code must be 6 characters (letters and numbers)"
+    },
+    "or": "OR"
+  },
+  "lobby": {
+    "title": "Game Lobby",
+    "waitingForPlayers": "Waiting for players to join...",
+    "copyInviteLink": "Copy Invite Link",
+    "linkCopied": "Link Copied!"
   }
 }

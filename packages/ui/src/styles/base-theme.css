@@ -1,0 +1,122 @@
+/*
+ * Base Theme — Dashboard Neutral (Zinc/Slate)
+ *
+ * This is the default theme for the entire project.
+ * Each app imports this file and overrides app-specific variables.
+ *
+ * Usage:
+ *   @import "@repo/ui/styles/base-theme.css";
+ *   @theme { --color-primary: #custom; }  // override only what you need
+ */
+
+/* ── Light Mode ── */
+@theme {
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  --color-background: #fafafa;
+  --color-foreground: #18181b;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #18181b;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #18181b;
+
+  --color-primary: #18181b;
+  --color-primary-foreground: #fafafa;
+
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #18181b;
+
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #18181b;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #fafafa;
+
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #18181b;
+
+  --color-chart-1: #18181b;
+  --color-chart-2: #71717a;
+  --color-chart-3: #a1a1aa;
+  --color-chart-4: #d4d4d8;
+  --color-chart-5: #f4f4f5;
+
+  --color-sidebar: #fafafa;
+  --color-sidebar-foreground: #18181b;
+  --color-sidebar-primary: #18181b;
+  --color-sidebar-primary-foreground: #fafafa;
+  --color-sidebar-accent: #f4f4f5;
+  --color-sidebar-accent-foreground: #18181b;
+  --color-sidebar-border: #e4e4e7;
+  --color-sidebar-ring: #18181b;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+/* ── Dark Mode ── */
+@layer base {
+  .dark {
+    --color-background: #09090b;
+    --color-foreground: #fafafa;
+
+    --color-card: #18181b;
+    --color-card-foreground: #fafafa;
+
+    --color-popover: #18181b;
+    --color-popover-foreground: #fafafa;
+
+    --color-primary: #fafafa;
+    --color-primary-foreground: #18181b;
+
+    --color-secondary: #27272a;
+    --color-secondary-foreground: #fafafa;
+
+    --color-muted: #27272a;
+    --color-muted-foreground: #a1a1aa;
+
+    --color-accent: #27272a;
+    --color-accent-foreground: #fafafa;
+
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #fafafa;
+
+    --color-border: #27272a;
+    --color-input: #27272a;
+    --color-ring: #d4d4d8;
+
+    --color-chart-1: #fafafa;
+    --color-chart-2: #a1a1aa;
+    --color-chart-3: #71717a;
+    --color-chart-4: #3f3f46;
+    --color-chart-5: #27272a;
+
+    --color-sidebar: #18181b;
+    --color-sidebar-foreground: #fafafa;
+    --color-sidebar-primary: #fafafa;
+    --color-sidebar-primary-foreground: #18181b;
+    --color-sidebar-accent: #27272a;
+    --color-sidebar-accent-foreground: #fafafa;
+    --color-sidebar-border: #27272a;
+    --color-sidebar-ring: #d4d4d8;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
