@@ -14,6 +14,8 @@ pnpm lint                             # Lint all packages
 pnpm check-types                      # TypeScript check all packages
 pnpm format                           # Format with Prettier
 pnpm --filter @repo/ui storybook      # Run Storybook (UI components)
+pnpm --filter spyfall test:e2e        # Run E2E tests (headless)
+pnpm --filter spyfall test:e2e:ui     # Run E2E tests (interactive UI)
 ```
 
 ## Development Patterns
@@ -87,11 +89,21 @@ Dashboard acts as the main zone and routes to game apps via rewrites:
 - Tailwind class sorting via `prettier-plugin-tailwindcss`
 - Run: `pnpm format` to format all files
 
+### E2E Testing (Playwright)
+
+- **Location**: `apps/<app>/e2e/` — per-app E2E tests
+- **Config**: `apps/<app>/playwright.config.ts`
+- **Run**: `pnpm --filter <app> test:e2e` (headless) or `test:e2e:ui` (interactive)
+- **When to write E2E tests**: Every user-facing feature should include E2E tests covering the critical user flows (navigation, form validation, i18n)
+- **Selectors**: Prefer accessible selectors (`getByRole`, `getByLabel`, `getByText`) over CSS selectors or test IDs
+- **i18n testing**: Use `NEXT_LOCALE` cookie to test locale switching
+- **CI**: E2E tests run after lint/type-check/build in a separate job with Playwright browsers installed
+
 ### CI (GitHub Actions)
 
 - Runs on PRs to `main` via `.github/workflows/ci.yml`
 - Uses Turborepo `--filter=...[origin/main]` to validate only affected packages
-- Steps: lint → type-check → build
+- Steps: lint → type-check → build → E2E tests
 
 ## Conventions
 
