@@ -3,6 +3,8 @@ import { getRoom } from "@repo/supabase";
 import { createServerClient } from "@/lib/supabase";
 import { LobbyContent } from "@/components/lobby-content";
 
+export const dynamic = "force-dynamic";
+
 interface LobbyPageProps {
   readonly params: Promise<{ roomCode: string }>;
   readonly searchParams: Promise<{ nickname?: string; playerId?: string }>;

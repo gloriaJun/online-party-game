@@ -12,7 +12,7 @@ interface LobbyContentProps {
   readonly playerId: string;
 }
 
-export function LobbyContent({ roomCode, nickname, playerId }: LobbyContentProps) {
+export function LobbyContent({ roomCode, nickname }: LobbyContentProps) {
   const t = useTranslations("lobby");
   const [copied, setCopied] = useState(false);
 

@@ -257,8 +257,11 @@ export type Database = {
         Relationships: [];
       };
     };
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- supabase-js v2.99+ requires {} (not Record<string, never>)
     Views: {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Functions: {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Enums: {};
   };
 };

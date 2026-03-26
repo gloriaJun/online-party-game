@@ -124,7 +124,6 @@ export function RoomLanding() {
             label={t("joinRoom.roomCode")}
             placeholder={t("joinRoom.roomCodePlaceholder")}
             error={roomCodeError}
-            disabled={isPending}
           />
         </div>
         <Button
