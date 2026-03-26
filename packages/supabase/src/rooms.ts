@@ -1,5 +1,4 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "./types/database";
+import type { Database, TypedSupabaseClient } from "./types/database";
 
 type DbRoom = Database["public"]["Tables"]["rooms"]["Row"];
 type DbPlayer = Database["public"]["Tables"]["players"]["Row"];
@@ -31,7 +30,7 @@ function generateCode(): string {
 }
 
 export async function createRoom(
-  client: SupabaseClient<Database>,
+  client: TypedSupabaseClient,
   gameType: string,
   nickname: string,
   userId: string | null
@@ -43,7 +42,7 @@ export async function createRoom(
     const { data, error } = await client
       .from("rooms")
       .insert({ code, game_type: gameType })
-      .select()
+      .select("*")
       .single();
 
     if (!error && data) {
@@ -64,7 +63,7 @@ export async function createRoom(
       is_host: true,
       user_id: userId,
     })
-    .select()
+    .select("*")
     .single();
 
   if (playerError || !player) {
@@ -83,14 +82,14 @@ export async function createRoom(
 }
 
 export async function joinRoom(
-  client: SupabaseClient<Database>,
+  client: TypedSupabaseClient,
   roomCode: string,
   nickname: string,
   userId: string | null
 ): Promise<{ room: DbRoom; player: DbPlayer }> {
   const { data: room, error: roomError } = await client
     .from("rooms")
-    .select()
+    .select("*")
     .eq("code", roomCode.toUpperCase())
     .single();
 
@@ -125,7 +124,7 @@ export async function joinRoom(
       is_host: false,
       user_id: userId,
     })
-    .select()
+    .select("*")
     .single();
 
   if (playerError || !player) throw new RoomOperationError("CREATE_FAILED");
@@ -134,12 +133,12 @@ export async function joinRoom(
 }
 
 export async function getRoom(
-  client: SupabaseClient<Database>,
+  client: TypedSupabaseClient,
   roomCode: string
 ): Promise<DbRoom | null> {
   const { data } = await client
     .from("rooms")
-    .select()
+    .select("*")
     .eq("code", roomCode.toUpperCase())
     .single();
 
@@ -147,12 +146,12 @@ export async function getRoom(
 }
 
 export async function getRoomWithPlayers(
-  client: SupabaseClient<Database>,
+  client: TypedSupabaseClient,
   roomCode: string
 ): Promise<{ room: DbRoom; players: DbPlayer[] } | null> {
   const { data: room } = await client
     .from("rooms")
-    .select()
+    .select("*")
     .eq("code", roomCode.toUpperCase())
     .single();
 
@@ -160,7 +159,7 @@ export async function getRoomWithPlayers(
 
   const { data: players } = await client
     .from("players")
-    .select()
+    .select("*")
     .eq("room_id", room.id)
     .order("created_at", { ascending: true });
 

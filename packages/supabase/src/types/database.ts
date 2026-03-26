@@ -12,6 +12,10 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+import type { SupabaseClient } from "@supabase/supabase-js";
+
+export type TypedSupabaseClient = SupabaseClient<Database, "public", "public">;
+
 export type Database = {
   public: {
     Tables: {
@@ -46,6 +50,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       players: {
         Row: {
@@ -75,6 +80,7 @@ export type Database = {
           user_id?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       game_sessions: {
         Row: {
@@ -104,6 +110,7 @@ export type Database = {
           ended_at?: string | null;
           result?: Json | null;
         };
+        Relationships: [];
       };
       spyfall_locations: {
         Row: {
@@ -124,6 +131,7 @@ export type Database = {
           image_url?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       spyfall_roles: {
         Row: {
@@ -150,6 +158,7 @@ export type Database = {
           max_count?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       spyfall_games: {
         Row: {
@@ -194,6 +203,7 @@ export type Database = {
           spy_guess_location_id?: string | null;
           winner?: string | null;
         };
+        Relationships: [];
       };
       spyfall_player_roles: {
         Row: {
@@ -217,6 +227,7 @@ export type Database = {
           role_id?: string | null;
           is_spy?: boolean;
         };
+        Relationships: [];
       };
       spyfall_votes: {
         Row: {
@@ -243,10 +254,11 @@ export type Database = {
           vote_round?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
     };
-    Views: Record<string, never>;
-    Functions: Record<string, never>;
-    Enums: Record<string, never>;
+    Views: {};
+    Functions: {};
+    Enums: {};
   };
 };

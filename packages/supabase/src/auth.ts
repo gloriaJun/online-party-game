@@ -1,8 +1,7 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "./types/database";
+import type { TypedSupabaseClient } from "./types/database";
 
 export async function getOrCreateAnonymousUser(
-  client: SupabaseClient<Database>
+  client: TypedSupabaseClient
 ): Promise<string> {
   const {
     data: { session },

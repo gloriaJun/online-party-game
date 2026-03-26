@@ -1,15 +1,14 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "./types/database";
+import type { Database, TypedSupabaseClient } from "./types/database";
 
 type DbPlayer = Database["public"]["Tables"]["players"]["Row"];
 
 export async function getPlayers(
-  client: SupabaseClient<Database>,
+  client: TypedSupabaseClient,
   roomId: string
 ): Promise<DbPlayer[]> {
   const { data } = await client
     .from("players")
-    .select()
+    .select("*")
     .eq("room_id", roomId)
     .order("created_at", { ascending: true });
 
@@ -17,7 +16,7 @@ export async function getPlayers(
 }
 
 export async function removePlayer(
-  client: SupabaseClient<Database>,
+  client: TypedSupabaseClient,
   playerId: string
 ): Promise<void> {
   await client.from("players").delete().eq("id", playerId);
