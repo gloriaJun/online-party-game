@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { generateRoomCode, isValidRoomCode } from "@repo/game-common";
+import { useState, useTransition } from "react";
+import { isValidRoomCode } from "@repo/game-common";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
@@ -11,25 +11,39 @@ import { Card } from "@repo/ui/card";
 import { RoomCodeInput } from "@repo/ui/room-code-input";
 import { SectionDivider } from "@repo/ui/section-divider";
 import { FormSection } from "@repo/ui/form-section";
+import { createRoomAction, joinRoomAction } from "@/app/actions/room";
 
 export function RoomLanding() {
   const t = useTranslations("landing");
+  const tErrors = useTranslations("errors");
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialRoomCode = searchParams.get("roomCode") ?? "";
   const [nickname, setNickname] = useState("");
   const [roomCode, setRoomCode] = useState(initialRoomCode);
   const [roomCodeError, setRoomCodeError] = useState("");
+  const [actionError, setActionError] = useState("");
+  const [isPending, startTransition] = useTransition();
 
-  const navigateToLobby = (code: string) => {
-    const params = new URLSearchParams({ nickname: nickname.trim() });
+  const navigateToLobby = (code: string, playerId: string) => {
+    const params = new URLSearchParams({
+      nickname: nickname.trim(),
+      playerId,
+    });
     router.push(`/lobby/${code}?${params.toString()}`);
   };
 
   const handleCreateRoom = () => {
     if (!nickname.trim()) return;
-    const code = generateRoomCode();
-    navigateToLobby(code);
+    setActionError("");
+    startTransition(async () => {
+      const result = await createRoomAction(nickname.trim());
+      if (result.success) {
+        navigateToLobby(result.roomCode, result.playerId);
+      } else {
+        setActionError(tErrors(result.error));
+      }
+    });
   };
 
   const handleJoinRoom = () => {
@@ -38,12 +52,21 @@ export function RoomLanding() {
       setRoomCodeError(t("joinRoom.invalidRoomCode"));
       return;
     }
-    navigateToLobby(roomCode);
+    setActionError("");
+    startTransition(async () => {
+      const result = await joinRoomAction(roomCode, nickname.trim());
+      if (result.success) {
+        navigateToLobby(result.roomCode, result.playerId);
+      } else {
+        setActionError(tErrors(result.error));
+      }
+    });
   };
 
   const handleRoomCodeChange = (value: string) => {
     setRoomCode(value);
     if (roomCodeError) setRoomCodeError("");
+    if (actionError) setActionError("");
   };
 
   const hasNickname = nickname.trim().length > 0;
@@ -60,8 +83,16 @@ export function RoomLanding() {
           onChange={(e) => setNickname(e.target.value)}
           maxLength={20}
           className="mt-2"
+          disabled={isPending}
         />
       </div>
+
+      {/* Action Error */}
+      {actionError && (
+        <p className="mb-4 text-sm text-red-500" role="alert">
+          {actionError}
+        </p>
+      )}
 
       {/* Create Room Section */}
       <FormSection
@@ -71,10 +102,10 @@ export function RoomLanding() {
       >
         <Button
           className="w-full"
-          disabled={!hasNickname}
+          disabled={!hasNickname || isPending}
           onClick={handleCreateRoom}
         >
-          {t("createRoom.submit")}
+          {isPending ? t("createRoom.loading") : t("createRoom.submit")}
         </Button>
       </FormSection>
 
@@ -93,14 +124,15 @@ export function RoomLanding() {
             label={t("joinRoom.roomCode")}
             placeholder={t("joinRoom.roomCodePlaceholder")}
             error={roomCodeError}
+            disabled={isPending}
           />
         </div>
         <Button
           className="w-full"
-          disabled={!hasNickname || roomCode.length !== 6}
+          disabled={!hasNickname || roomCode.length !== 6 || isPending}
           onClick={handleJoinRoom}
         >
-          {t("joinRoom.submit")}
+          {isPending ? t("joinRoom.loading") : t("joinRoom.submit")}
         </Button>
       </FormSection>
     </Card>

@@ -6,7 +6,13 @@ import { Check, Link } from "lucide-react";
 import { Card } from "@repo/ui/card";
 import { Button } from "@repo/ui/button";
 
-export function LobbyContent({ roomCode }: { roomCode: string }) {
+interface LobbyContentProps {
+  readonly roomCode: string;
+  readonly nickname: string;
+  readonly playerId: string;
+}
+
+export function LobbyContent({ roomCode, nickname, playerId }: LobbyContentProps) {
   const t = useTranslations("lobby");
   const [copied, setCopied] = useState(false);
 
@@ -24,6 +30,9 @@ export function LobbyContent({ roomCode }: { roomCode: string }) {
         <p className="text-muted-foreground mt-2 font-mono text-lg tracking-widest">
           {roomCode}
         </p>
+        {nickname && (
+          <p className="mt-2 text-sm">{t("joinedAs", { nickname })}</p>
+        )}
         <p className="text-muted-foreground mt-4 text-sm">
           {t("waitingForPlayers")}
         </p>
