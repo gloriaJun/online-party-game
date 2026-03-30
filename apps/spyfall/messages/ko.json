@@ -13,7 +13,8 @@
     "createRoom": {
       "title": "방 만들기",
       "description": "새 게임 방을 만들고 친구를 초대하세요",
-      "submit": "방 만들기"
+      "submit": "방 만들기",
+      "loading": "생성 중..."
     },
     "joinRoom": {
       "title": "방 참여",
@@ -21,6 +22,7 @@
       "roomCode": "방 코드",
       "roomCodePlaceholder": "예: ABC123",
       "submit": "방 참여",
+      "loading": "참여 중...",
       "invalidRoomCode": "방 코드는 영문/숫자 6자리여야 합니다"
     },
     "or": "또는"
@@ -29,6 +31,15 @@
     "title": "게임 로비",
     "waitingForPlayers": "플레이어 참여를 기다리는 중...",
     "copyInviteLink": "초대 링크 복사",
-    "linkCopied": "링크가 복사되었습니다!"
+    "linkCopied": "링크가 복사되었습니다!",
+    "joinedAs": "{nickname}(으)로 참여"
+  },
+  "errors": {
+    "ROOM_NOT_FOUND": "존재하지 않는 방입니다",
+    "ROOM_FULL": "방이 꽉 찼습니다",
+    "ROOM_NOT_WAITING": "이미 게임이 시작되었습니다",
+    "NICKNAME_TAKEN": "이미 사용 중인 닉네임입니다",
+    "CREATE_FAILED": "방 생성에 실패했습니다. 다시 시도해주세요.",
+    "UNKNOWN": "문제가 발생했습니다. 다시 시도해주세요."
   }
 }

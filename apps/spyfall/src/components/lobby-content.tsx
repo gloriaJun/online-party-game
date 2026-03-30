@@ -6,8 +6,14 @@ import { Check, Link } from "lucide-react";
 import { Card } from "@repo/ui/card";
 import { Button } from "@repo/ui/button";
 
-export function LobbyContent({ roomCode }: { roomCode: string }) {
-  const t = useTranslations("lobby");
+interface LobbyContentProps {
+  readonly roomCode: string;
+  readonly nickname: string;
+  readonly playerId: string;
+}
+
+export function LobbyContent({ roomCode, nickname }: LobbyContentProps) {
+  const t = useTranslations();
   const [copied, setCopied] = useState(false);
 
   const handleCopyLink = async () => {
@@ -20,12 +26,15 @@ export function LobbyContent({ roomCode }: { roomCode: string }) {
   return (
     <main className="flex flex-1 items-center justify-center p-4">
       <Card className="w-full max-w-lg p-6 text-center md:p-8">
-        <h2 className="text-2xl font-bold">{t("title")}</h2>
+        <h2 className="text-2xl font-bold">{t("lobby.title")}</h2>
         <p className="text-muted-foreground mt-2 font-mono text-lg tracking-widest">
           {roomCode}
         </p>
+        {nickname && (
+          <p className="mt-2 text-sm">{t("lobby.joinedAs", { nickname })}</p>
+        )}
         <p className="text-muted-foreground mt-4 text-sm">
-          {t("waitingForPlayers")}
+          {t("lobby.waitingForPlayers")}
         </p>
         <Button
           variant="outline"
@@ -35,12 +44,12 @@ export function LobbyContent({ roomCode }: { roomCode: string }) {
           {copied ? (
             <>
               <Check className="h-4 w-4" />
-              {t("linkCopied")}
+              {t("lobby.linkCopied")}
             </>
           ) : (
             <>
               <Link className="h-4 w-4" />
-              {t("copyInviteLink")}
+              {t("lobby.copyInviteLink")}
             </>
           )}
         </Button>

@@ -15,6 +15,7 @@
     "@repo/game-common": "workspace:*",
     "@repo/supabase": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@supabase/supabase-js": "^2.49.0",
     "@tailwindcss/postcss": "^4.2.1",
     "lucide-react": "^0.577.0",
     "next": "^15.3.0",

@@ -13,7 +13,8 @@
     "createRoom": {
       "title": "Create Room",
       "description": "Start a new game room and invite friends",
-      "submit": "Create Room"
+      "submit": "Create Room",
+      "loading": "Creating..."
     },
     "joinRoom": {
       "title": "Join Room",
@@ -21,6 +22,7 @@
       "roomCode": "Room Code",
       "roomCodePlaceholder": "e.g. ABC123",
       "submit": "Join Room",
+      "loading": "Joining...",
       "invalidRoomCode": "Room code must be 6 characters (letters and numbers)"
     },
     "or": "OR"
@@ -29,6 +31,15 @@
     "title": "Game Lobby",
     "waitingForPlayers": "Waiting for players to join...",
     "copyInviteLink": "Copy Invite Link",
-    "linkCopied": "Link Copied!"
+    "linkCopied": "Link Copied!",
+    "joinedAs": "Joined as {nickname}"
+  },
+  "errors": {
+    "ROOM_NOT_FOUND": "Room not found",
+    "ROOM_FULL": "Room is full",
+    "ROOM_NOT_WAITING": "Game already started",
+    "NICKNAME_TAKEN": "Nickname already taken in this room",
+    "CREATE_FAILED": "Failed to create room. Please try again.",
+    "UNKNOWN": "Something went wrong. Please try again."
   }
 }
