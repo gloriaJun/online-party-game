@@ -1,4 +1,4 @@
-export { supabase } from "./client";
+export { supabase, getSupabaseClient } from "./client";
 export { joinGameRoom, broadcastEvent, trackPresence } from "./realtime";
 export type { Database, TypedSupabaseClient } from "./types/database";
 export { getOrCreateAnonymousUser } from "./auth";
