@@ -14,8 +14,7 @@ import { FormSection } from "@repo/ui/form-section";
 import { createRoomAction, joinRoomAction } from "@/app/actions/room";
 
 export function RoomLanding() {
-  const t = useTranslations("landing");
-  const tErrors = useTranslations("errors");
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialRoomCode = searchParams.get("roomCode") ?? "";
@@ -41,7 +40,7 @@ export function RoomLanding() {
       if (result.success) {
         navigateToLobby(result.roomCode, result.playerId);
       } else {
-        setActionError(tErrors(result.error));
+        setActionError(t(`errors.${result.error}`));
       }
     });
   };
@@ -49,7 +48,7 @@ export function RoomLanding() {
   const handleJoinRoom = () => {
     if (!nickname.trim()) return;
     if (!isValidRoomCode(roomCode)) {
-      setRoomCodeError(t("joinRoom.invalidRoomCode"));
+      setRoomCodeError(t("landing.joinRoom.invalidRoomCode"));
       return;
     }
     setActionError("");
@@ -58,7 +57,7 @@ export function RoomLanding() {
       if (result.success) {
         navigateToLobby(result.roomCode, result.playerId);
       } else {
-        setActionError(tErrors(result.error));
+        setActionError(t(`errors.${result.error}`));
       }
     });
   };
@@ -75,10 +74,10 @@ export function RoomLanding() {
     <Card className="w-full max-w-md p-6 md:p-8">
       {/* Nickname Input */}
       <div className="mb-6">
-        <Label htmlFor="nickname">{t("nickname")}</Label>
+        <Label htmlFor="nickname">{t("landing.nickname")}</Label>
         <Input
           id="nickname"
-          placeholder={t("nicknamePlaceholder")}
+          placeholder={t("landing.nicknamePlaceholder")}
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           maxLength={20}
@@ -96,8 +95,8 @@ export function RoomLanding() {
 
       {/* Create Room Section */}
       <FormSection
-        title={t("createRoom.title")}
-        description={t("createRoom.description")}
+        title={t("landing.createRoom.title")}
+        description={t("landing.createRoom.description")}
         className="mb-6"
       >
         <Button
@@ -105,24 +104,24 @@ export function RoomLanding() {
           disabled={!hasNickname || isPending}
           onClick={handleCreateRoom}
         >
-          {isPending ? t("createRoom.loading") : t("createRoom.submit")}
+          {isPending ? t("landing.createRoom.loading") : t("landing.createRoom.submit")}
         </Button>
       </FormSection>
 
       {/* Divider */}
-      <SectionDivider label={t("or")} className="mb-6" />
+      <SectionDivider label={t("landing.or")} className="mb-6" />
 
       {/* Join Room Section */}
       <FormSection
-        title={t("joinRoom.title")}
-        description={t("joinRoom.description")}
+        title={t("landing.joinRoom.title")}
+        description={t("landing.joinRoom.description")}
       >
         <div className="mb-4">
           <RoomCodeInput
             value={roomCode}
             onChange={handleRoomCodeChange}
-            label={t("joinRoom.roomCode")}
-            placeholder={t("joinRoom.roomCodePlaceholder")}
+            label={t("landing.joinRoom.roomCode")}
+            placeholder={t("landing.joinRoom.roomCodePlaceholder")}
             error={roomCodeError}
           />
         </div>
@@ -131,7 +130,7 @@ export function RoomLanding() {
           disabled={!hasNickname || roomCode.length !== 6 || isPending}
           onClick={handleJoinRoom}
         >
-          {isPending ? t("joinRoom.loading") : t("joinRoom.submit")}
+          {isPending ? t("landing.joinRoom.loading") : t("landing.joinRoom.submit")}
         </Button>
       </FormSection>
     </Card>

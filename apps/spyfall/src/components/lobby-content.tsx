@@ -13,7 +13,7 @@ interface LobbyContentProps {
 }
 
 export function LobbyContent({ roomCode, nickname }: LobbyContentProps) {
-  const t = useTranslations("lobby");
+  const t = useTranslations();
   const [copied, setCopied] = useState(false);
 
   const handleCopyLink = async () => {
@@ -26,15 +26,15 @@ export function LobbyContent({ roomCode, nickname }: LobbyContentProps) {
   return (
     <main className="flex flex-1 items-center justify-center p-4">
       <Card className="w-full max-w-lg p-6 text-center md:p-8">
-        <h2 className="text-2xl font-bold">{t("title")}</h2>
+        <h2 className="text-2xl font-bold">{t("lobby.title")}</h2>
         <p className="text-muted-foreground mt-2 font-mono text-lg tracking-widest">
           {roomCode}
         </p>
         {nickname && (
-          <p className="mt-2 text-sm">{t("joinedAs", { nickname })}</p>
+          <p className="mt-2 text-sm">{t("lobby.joinedAs", { nickname })}</p>
         )}
         <p className="text-muted-foreground mt-4 text-sm">
-          {t("waitingForPlayers")}
+          {t("lobby.waitingForPlayers")}
         </p>
         <Button
           variant="outline"
@@ -44,12 +44,12 @@ export function LobbyContent({ roomCode, nickname }: LobbyContentProps) {
           {copied ? (
             <>
               <Check className="h-4 w-4" />
-              {t("linkCopied")}
+              {t("lobby.linkCopied")}
             </>
           ) : (
             <>
               <Link className="h-4 w-4" />
-              {t("copyInviteLink")}
+              {t("lobby.copyInviteLink")}
             </>
           )}
         </Button>
