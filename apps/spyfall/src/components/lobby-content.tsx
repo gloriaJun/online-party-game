@@ -1,59 +1,81 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { Check, Link } from "lucide-react";
-import { Card } from "@repo/ui/card";
-import { Button } from "@repo/ui/button";
+import { usePresence, type PresencePlayer } from "@/hooks/use-presence";
+import { useGameSettings } from "@/hooks/use-game-settings";
+import { PlayerList } from "@/components/lobby/player-list";
+import { GameSettings } from "@/components/lobby/game-settings";
+import { ShareRoom } from "@/components/lobby/share-room";
+import { StartGameButton } from "@/components/lobby/start-game-button";
 
 interface LobbyContentProps {
   readonly roomCode: string;
   readonly nickname: string;
   readonly playerId: string;
+  readonly isHost: boolean;
+  readonly maxPlayers: number;
+  readonly initialPlayers: PresencePlayer[];
 }
 
-export function LobbyContent({ roomCode, nickname }: LobbyContentProps) {
+export function LobbyContent({
+  roomCode,
+  nickname,
+  playerId,
+  isHost,
+  maxPlayers,
+  initialPlayers,
+}: LobbyContentProps) {
   const t = useTranslations();
-  const [copied, setCopied] = useState(false);
 
-  const handleCopyLink = async () => {
-    const inviteUrl = `${globalThis.location.origin}/games/spyfall?roomCode=${roomCode}`;
-    await navigator.clipboard.writeText(inviteUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const { players, channel } = usePresence({
+    roomCode,
+    playerId,
+    nickname,
+    isHost,
+    initialPlayers,
+  });
+
+  const { settings, updateSettings } = useGameSettings({
+    channel,
+    isHost,
+    playerCount: players.length,
+  });
+
+  const handleStartGame = () => {
+    // Stub — will be implemented in issue #21 (game start & role reveal)
   };
 
   return (
     <main className="flex flex-1 items-center justify-center p-4">
-      <Card className="w-full max-w-lg p-6 text-center md:p-8">
-        <h2 className="text-2xl font-bold">{t("lobby.title")}</h2>
-        <p className="text-muted-foreground mt-2 font-mono text-lg tracking-widest">
-          {roomCode}
-        </p>
-        {nickname && (
-          <p className="mt-2 text-sm">{t("lobby.joinedAs", { nickname })}</p>
-        )}
-        <p className="text-muted-foreground mt-4 text-sm">
-          {t("lobby.waitingForPlayers")}
-        </p>
-        <Button
-          variant="outline"
-          className="mt-4 gap-2"
-          onClick={handleCopyLink}
-        >
-          {copied ? (
-            <>
-              <Check className="h-4 w-4" />
-              {t("lobby.linkCopied")}
-            </>
-          ) : (
-            <>
-              <Link className="h-4 w-4" />
-              {t("lobby.copyInviteLink")}
-            </>
-          )}
-        </Button>
-      </Card>
+      <div className="flex w-full max-w-lg flex-col gap-4">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold">{t("lobby.title")}</h2>
+          <p className="text-muted-foreground mt-1 text-sm">
+            {t("lobby.joinedAs", { nickname })}
+          </p>
+        </div>
+
+        <PlayerList
+          players={players}
+          maxPlayers={maxPlayers}
+          currentPlayerId={playerId}
+        />
+
+        <GameSettings
+          settings={settings}
+          isHost={isHost}
+          playerCount={players.length}
+          onUpdate={updateSettings}
+        />
+
+        <ShareRoom roomCode={roomCode} />
+
+        <StartGameButton
+          isHost={isHost}
+          playerCount={players.length}
+          onStartGame={handleStartGame}
+        />
+      </div>
     </main>
   );
 }
