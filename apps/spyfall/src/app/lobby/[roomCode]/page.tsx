@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getRoom } from "@repo/supabase";
+import { getRoomWithPlayers } from "@repo/supabase";
 import { createServerClient } from "@/lib/supabase";
 import { LobbyContent } from "@/components/lobby-content";
 
@@ -17,18 +17,36 @@ export default async function LobbyPage({
   const { roomCode } = await params;
   const { nickname, playerId } = await searchParams;
 
-  const client = createServerClient();
-  const room = await getRoom(client, roomCode);
+  if (!nickname || !playerId) {
+    redirect(`/?roomCode=${roomCode}`);
+  }
 
-  if (!room) {
+  const client = createServerClient();
+  const result = await getRoomWithPlayers(client, roomCode);
+
+  if (!result) {
     redirect("/");
   }
+
+  const { room, players } = result;
+
+  const initialPlayers = players.map((p) => ({
+    id: p.id,
+    nickname: p.nickname,
+    isHost: p.is_host,
+    isConnected: false,
+  }));
+
+  const isHost = room.host_player_id === playerId;
 
   return (
     <LobbyContent
       roomCode={room.code}
-      nickname={nickname ?? ""}
-      playerId={playerId ?? ""}
+      nickname={nickname}
+      playerId={playerId}
+      isHost={isHost}
+      maxPlayers={room.max_players}
+      initialPlayers={initialPlayers}
     />
   );
 }
