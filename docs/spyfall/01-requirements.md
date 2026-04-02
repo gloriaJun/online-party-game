@@ -16,7 +16,7 @@
 | Monorepo | Turborepo + pnpm workspaces              |
 | Deploy   | Vercel (Multi-Zone)                      |
 | Language | TypeScript                               |
-| State    | TBD (Jotai or Zustand)                   |
+| State    | React hooks (useState/useCallback) + Supabase Realtime |
 
 ## Architecture
 
@@ -81,7 +81,7 @@ When voting results in a tie, one of the following options applies (configurable
 | 7~9          | 7 minutes        |
 | 10~12        | 8 minutes        |
 
-- Host can adjust timer manually (range: 3~15 minutes, 1-minute increments)
+- Host can adjust timer manually (options: 5, 6, 7, 8, 10 minutes)
 - Timer is synchronized across all clients via Supabase Realtime Broadcast
 
 ---

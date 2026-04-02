@@ -10,20 +10,30 @@ test.describe("Landing Page", () => {
 
   test("renders all sections", async ({ page }) => {
     await expect(page.getByLabel("Nickname")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Create Room" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Create Room" })
+    ).toBeVisible();
     await expect(page.getByLabel("Room Code")).toBeVisible();
     await expect(page.getByRole("button", { name: "Join Room" })).toBeVisible();
     await expect(page.getByText("OR")).toBeVisible();
   });
 
-  test("create and join buttons are disabled without nickname", async ({ page }) => {
-    await expect(page.getByRole("button", { name: "Create Room" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Join Room" })).toBeDisabled();
+  test("create and join buttons are disabled without nickname", async ({
+    page,
+  }) => {
+    await expect(
+      page.getByRole("button", { name: "Create Room" })
+    ).toBeDisabled();
+    await expect(
+      page.getByRole("button", { name: "Join Room" })
+    ).toBeDisabled();
   });
 
   test("create room button enables with nickname", async ({ page }) => {
     await page.getByLabel("Nickname").fill("Player1");
-    await expect(page.getByRole("button", { name: "Create Room" })).toBeEnabled();
+    await expect(
+      page.getByRole("button", { name: "Create Room" })
+    ).toBeEnabled();
   });
 
   // Requires running Supabase instance — skipped in CI without DB
@@ -33,7 +43,9 @@ test.describe("Landing Page", () => {
     await expect(page).toHaveURL(/\/lobby\/[A-Z0-9]{6}\?nickname=Player1/);
   });
 
-  test("join room requires both nickname and valid room code", async ({ page }) => {
+  test("join room requires both nickname and valid room code", async ({
+    page,
+  }) => {
     const joinButton = page.getByRole("button", { name: "Join Room" });
 
     // No nickname, no code
@@ -54,7 +66,9 @@ test.describe("Landing Page", () => {
   });
 
   // Requires running Supabase instance — skipped in CI without DB
-  test.skip("join room navigates to lobby with valid code", async ({ page }) => {
+  test.skip("join room navigates to lobby with valid code", async ({
+    page,
+  }) => {
     await page.getByLabel("Nickname").fill("Player1");
     await page.getByLabel("Room Code").pressSequentially(VALID_ROOM_CODE);
     await page.getByRole("button", { name: "Join Room" }).click();

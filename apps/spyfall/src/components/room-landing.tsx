@@ -69,6 +69,7 @@ export function RoomLanding() {
   };
 
   const hasNickname = nickname.trim().length > 0;
+  const isInvited = initialRoomCode.length > 0;
 
   return (
     <Card className="w-full max-w-md p-6 md:p-8">
@@ -83,6 +84,7 @@ export function RoomLanding() {
           maxLength={20}
           className="mt-2"
           disabled={isPending}
+          autoFocus={isInvited}
         />
       </div>
 
@@ -97,14 +99,16 @@ export function RoomLanding() {
       <FormSection
         title={t("landing.createRoom.title")}
         description={t("landing.createRoom.description")}
-        className="mb-6"
+        className={isInvited ? "mb-6 opacity-50" : "mb-6"}
       >
         <Button
           className="w-full"
-          disabled={!hasNickname || isPending}
+          disabled={!hasNickname || isPending || isInvited}
           onClick={handleCreateRoom}
         >
-          {isPending ? t("landing.createRoom.loading") : t("landing.createRoom.submit")}
+          {isPending && !isInvited
+            ? t("landing.createRoom.loading")
+            : t("landing.createRoom.submit")}
         </Button>
       </FormSection>
 
@@ -130,7 +134,9 @@ export function RoomLanding() {
           disabled={!hasNickname || roomCode.length !== 6 || isPending}
           onClick={handleJoinRoom}
         >
-          {isPending ? t("landing.joinRoom.loading") : t("landing.joinRoom.submit")}
+          {isPending
+            ? t("landing.joinRoom.loading")
+            : t("landing.joinRoom.submit")}
         </Button>
       </FormSection>
     </Card>

@@ -13,10 +13,16 @@ function getClient() {
   return createClient<Database>(supabaseUrl, supabaseKey);
 }
 
+let _browserClient: ReturnType<typeof getClient> | null = null;
+
 export function createBrowserClient() {
-  return getClient();
+  if (!_browserClient) {
+    _browserClient = getClient();
+  }
+  return _browserClient;
 }
 
 export function createServerClient() {
+  // Server clients should NOT be cached — each request gets a fresh client
   return getClient();
 }

@@ -48,11 +48,15 @@ describe("resolveLocaleFromHeaders", () => {
   });
 
   it("parses Accept-Language with quality values", () => {
-    expect(resolveLocaleFromHeaders(undefined, "ko-KR,ko;q=0.9,en;q=0.8")).toBe("ko");
+    expect(resolveLocaleFromHeaders(undefined, "ko-KR,ko;q=0.9,en;q=0.8")).toBe(
+      "ko"
+    );
   });
 
   it("falls through unsupported languages to find a match", () => {
-    expect(resolveLocaleFromHeaders(undefined, "fr-FR,ja;q=0.9,ko;q=0.8")).toBe("ko");
+    expect(resolveLocaleFromHeaders(undefined, "fr-FR,ja;q=0.9,ko;q=0.8")).toBe(
+      "ko"
+    );
   });
 
   it("extracts base locale from region subtag", () => {

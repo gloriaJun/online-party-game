@@ -29,10 +29,23 @@
   },
   "lobby": {
     "title": "Game Lobby",
-    "waitingForPlayers": "Waiting for players to join...",
+    "waitingForPlayers": "Waiting for players...",
     "copyInviteLink": "Copy Invite Link",
     "linkCopied": "Link Copied!",
-    "joinedAs": "Joined as {nickname}"
+    "joinedAs": "Joined as {nickname}",
+    "players": "Players",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "host": "Host",
+    "startGame": "Start Game",
+    "minPlayers": "Need at least {count} players to start",
+    "settings": {
+      "title": "Game Settings",
+      "hostOnly": "Host only",
+      "spyCount": "Spy Count",
+      "timer": "Timer",
+      "minutes": "{count} min"
+    }
   },
   "errors": {
     "ROOM_NOT_FOUND": "Room not found",

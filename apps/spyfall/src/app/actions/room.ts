@@ -54,12 +54,7 @@ export async function joinRoomAction(
       // Continue without user_id
     }
 
-    const { room, player } = await joinRoom(
-      client,
-      roomCode,
-      nickname,
-      userId
-    );
+    const { room, player } = await joinRoom(client, roomCode, nickname, userId);
     return { success: true, roomCode: room.code, playerId: player.id };
   } catch (error) {
     if (error instanceof RoomOperationError) {
