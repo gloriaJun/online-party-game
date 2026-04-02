@@ -29,10 +29,23 @@
   },
   "lobby": {
     "title": "게임 로비",
-    "waitingForPlayers": "플레이어 참여를 기다리는 중...",
+    "waitingForPlayers": "플레이어를 기다리는 중...",
     "copyInviteLink": "초대 링크 복사",
     "linkCopied": "링크가 복사되었습니다!",
-    "joinedAs": "{nickname}(으)로 참여"
+    "joinedAs": "{nickname}(으)로 참여",
+    "players": "플레이어",
+    "connected": "접속 중",
+    "disconnected": "미접속",
+    "host": "방장",
+    "startGame": "게임 시작",
+    "minPlayers": "최소 {count}명의 플레이어가 필요합니다",
+    "settings": {
+      "title": "게임 설정",
+      "hostOnly": "방장 전용",
+      "spyCount": "스파이 수",
+      "timer": "타이머",
+      "minutes": "{count}분"
+    }
   },
   "errors": {
     "ROOM_NOT_FOUND": "존재하지 않는 방입니다",
