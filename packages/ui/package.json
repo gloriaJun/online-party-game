@@ -8,6 +8,7 @@
     "./input": "./src/atoms/input.tsx",
     "./label": "./src/atoms/label.tsx",
     "./separator": "./src/atoms/separator.tsx",
+    "./select": "./src/atoms/select.tsx",
     "./code": "./src/atoms/code.tsx",
     "./game-layout": "./src/organisms/game-layout.tsx",
     "./locale-switcher": "./src/organisms/locale-switcher.tsx",
@@ -47,6 +48,7 @@
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
