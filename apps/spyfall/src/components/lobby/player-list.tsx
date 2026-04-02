@@ -45,7 +45,7 @@ export function PlayerList({
             {players.length < maxPlayers && (
               <>
                 <Separator />
-                <p className="text-muted-foreground py-2 px-3 text-center text-xs">
+                <p className="text-muted-foreground px-3 py-2 text-center text-xs">
                   {t("lobby.waitingForPlayers")}
                 </p>
               </>

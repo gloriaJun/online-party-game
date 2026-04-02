@@ -34,10 +34,18 @@ export function ShareRoom({ roomCode }: ShareRoomProps) {
         className="flex-1 gap-2 font-mono tracking-widest"
         onClick={handleCopyCode}
       >
-        {codeCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        {codeCopied ? (
+          <Check className="h-4 w-4" />
+        ) : (
+          <Copy className="h-4 w-4" />
+        )}
         {roomCode}
       </Button>
-      <Button variant="outline" className="flex-1 gap-2" onClick={handleCopyLink}>
+      <Button
+        variant="outline"
+        className="flex-1 gap-2"
+        onClick={handleCopyLink}
+      >
         {linkCopied ? (
           <>
             <Check className="h-4 w-4" />

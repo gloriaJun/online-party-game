@@ -15,13 +15,17 @@ export function PlayerItem({ player, isCurrentUser }: PlayerItemProps) {
   return (
     <div
       className={cn(
-        "flex items-center justify-between py-2 px-3",
+        "flex items-center justify-between px-3 py-2",
         isCurrentUser && "bg-accent/50 rounded-md"
       )}
     >
       <div className="flex items-center gap-2">
         {player.isHost && (
-          <span className="text-sm" title={t("lobby.host")} aria-label={t("lobby.host")}>
+          <span
+            className="text-sm"
+            title={t("lobby.host")}
+            aria-label={t("lobby.host")}
+          >
             👑
           </span>
         )}
@@ -34,7 +38,9 @@ export function PlayerItem({ player, isCurrentUser }: PlayerItemProps) {
           "inline-block h-2.5 w-2.5 rounded-full",
           player.isConnected ? "bg-green-500" : "bg-muted"
         )}
-        aria-label={player.isConnected ? t("lobby.connected") : t("lobby.disconnected")}
+        aria-label={
+          player.isConnected ? t("lobby.connected") : t("lobby.disconnected")
+        }
       />
     </div>
   );

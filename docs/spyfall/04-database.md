@@ -18,25 +18,25 @@ public.spyfall_votes                -- individual votes per round
 
 Static location data used for game content.
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique location ID |
-| name | varchar | Location display name |
-| image_url | varchar (nullable) | Card image path |
-| created_at | timestamptz | Creation timestamp |
+| Column     | Type               | Description           |
+| ---------- | ------------------ | --------------------- |
+| id         | uuid (PK)          | Unique location ID    |
+| name       | varchar            | Location display name |
+| image_url  | varchar (nullable) | Card image path       |
+| created_at | timestamptz        | Creation timestamp    |
 
 ### spyfall_roles
 
 Roles available at each location. Each role has a max headcount.
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique role ID |
-| location_id | uuid (FK) | Reference to `spyfall_locations` |
-| name | varchar | Role display name |
-| image_url | varchar (nullable) | Role card image path |
-| max_count | int | Maximum players assignable to this role |
-| created_at | timestamptz | Creation timestamp |
+| Column      | Type               | Description                             |
+| ----------- | ------------------ | --------------------------------------- |
+| id          | uuid (PK)          | Unique role ID                          |
+| location_id | uuid (FK)          | Reference to `spyfall_locations`        |
+| name        | varchar            | Role display name                       |
+| image_url   | varchar (nullable) | Role card image path                    |
+| max_count   | int                | Maximum players assignable to this role |
+| created_at  | timestamptz        | Creation timestamp                      |
 
 ## Game State Tables
 
@@ -44,55 +44,55 @@ Roles available at each location. Each role has a max headcount.
 
 Per-round game configuration and state. One row per game round (linked to `game_sessions`).
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique game ID |
-| session_id | uuid (FK) | Reference to `game_sessions` |
-| location_id | uuid (FK) | Selected location for this round |
-| spy_count | int | Number of spies |
-| timer_duration | int | Discussion timer in seconds |
-| has_moderator | boolean | Whether moderator mode is enabled |
-| moderator_player_id | uuid (FK, nullable) | Reference to moderator player |
-| tie_break_rule | varchar | `revote_tied`, `revote_all`, or `spy_wins` |
-| phase | varchar | Current game phase (see Game Phases below) |
-| phase_started_at | timestamptz (nullable) | When the current phase started |
-| spy_guess_location_id | uuid (FK, nullable) | Location the spy guessed (if applicable) |
-| winner | varchar (nullable) | `spy` or `citizens` (set when game ends) |
+| Column                | Type                   | Description                                |
+| --------------------- | ---------------------- | ------------------------------------------ |
+| id                    | uuid (PK)              | Unique game ID                             |
+| session_id            | uuid (FK)              | Reference to `game_sessions`               |
+| location_id           | uuid (FK)              | Selected location for this round           |
+| spy_count             | int                    | Number of spies                            |
+| timer_duration        | int                    | Discussion timer in seconds                |
+| has_moderator         | boolean                | Whether moderator mode is enabled          |
+| moderator_player_id   | uuid (FK, nullable)    | Reference to moderator player              |
+| tie_break_rule        | varchar                | `revote_tied`, `revote_all`, or `spy_wins` |
+| phase                 | varchar                | Current game phase (see Game Phases below) |
+| phase_started_at      | timestamptz (nullable) | When the current phase started             |
+| spy_guess_location_id | uuid (FK, nullable)    | Location the spy guessed (if applicable)   |
+| winner                | varchar (nullable)     | `spy` or `citizens` (set when game ends)   |
 
 #### Game Phases
 
-| Phase | Description |
-| --- | --- |
-| `role_reveal` | Players view their assigned role cards |
-| `discussion` | Question-and-answer round with timer |
-| `voting` | All players vote simultaneously |
-| `spy_guess` | Caught spy attempts to guess the location |
-| `result` | Game over, showing winner and summary |
+| Phase         | Description                               |
+| ------------- | ----------------------------------------- |
+| `role_reveal` | Players view their assigned role cards    |
+| `discussion`  | Question-and-answer round with timer      |
+| `voting`      | All players vote simultaneously           |
+| `spy_guess`   | Caught spy attempts to guess the location |
+| `result`      | Game over, showing winner and summary     |
 
 ### spyfall_player_roles
 
 Role assignment for each player in a game round.
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique assignment ID |
-| game_id | uuid (FK) | Reference to `spyfall_games` |
-| player_id | uuid (FK) | Reference to `players` |
-| role_id | uuid (FK, nullable) | Reference to `spyfall_roles` (null if spy) |
-| is_spy | boolean | Whether this player is a spy |
+| Column    | Type                | Description                                |
+| --------- | ------------------- | ------------------------------------------ |
+| id        | uuid (PK)           | Unique assignment ID                       |
+| game_id   | uuid (FK)           | Reference to `spyfall_games`               |
+| player_id | uuid (FK)           | Reference to `players`                     |
+| role_id   | uuid (FK, nullable) | Reference to `spyfall_roles` (null if spy) |
+| is_spy    | boolean             | Whether this player is a spy               |
 
 ### spyfall_votes
 
 Individual vote records for each voting round.
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique vote ID |
-| game_id | uuid (FK) | Reference to `spyfall_games` |
-| voter_player_id | uuid (FK) | Player who cast the vote |
-| target_player_id | uuid (FK) | Player being voted for |
-| vote_round | int | Vote round number (1 = initial, 2+ = revotes) |
-| created_at | timestamptz | Vote timestamp |
+| Column           | Type        | Description                                   |
+| ---------------- | ----------- | --------------------------------------------- |
+| id               | uuid (PK)   | Unique vote ID                                |
+| game_id          | uuid (FK)   | Reference to `spyfall_games`                  |
+| voter_player_id  | uuid (FK)   | Player who cast the vote                      |
+| target_player_id | uuid (FK)   | Player being voted for                        |
+| vote_round       | int         | Vote round number (1 = initial, 2+ = revotes) |
+| created_at       | timestamptz | Vote timestamp                                |
 
 ## Relationships
 
@@ -112,13 +112,13 @@ For shared table relationships (`rooms`, `players`, `game_sessions`), see [Datab
 
 ## Indexes
 
-| Table | Index | Purpose |
-| --- | --- | --- |
-| spyfall_locations | `name` (unique) | Prevent duplicate locations |
-| spyfall_roles | `(location_id, name)` (unique) | Prevent duplicate roles per location |
-| spyfall_games | `session_id` (unique) | One game per session |
-| spyfall_player_roles | `(game_id, player_id)` (unique) | One role per player per game |
-| spyfall_votes | `(game_id, voter_player_id, vote_round)` (unique) | One vote per player per round |
+| Table                | Index                                             | Purpose                              |
+| -------------------- | ------------------------------------------------- | ------------------------------------ |
+| spyfall_locations    | `name` (unique)                                   | Prevent duplicate locations          |
+| spyfall_roles        | `(location_id, name)` (unique)                    | Prevent duplicate roles per location |
+| spyfall_games        | `session_id` (unique)                             | One game per session                 |
+| spyfall_player_roles | `(game_id, player_id)` (unique)                   | One role per player per game         |
+| spyfall_votes        | `(game_id, voter_player_id, vote_round)` (unique) | One vote per player per round        |
 
 ## RLS (Row Level Security) Notes
 

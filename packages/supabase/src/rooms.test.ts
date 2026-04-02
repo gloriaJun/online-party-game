@@ -219,9 +219,9 @@ describe("createRoom", () => {
       }),
     } as unknown as TypedSupabaseClient;
 
-    await expect(
-      createRoom(client, "spyfall", "Alice", null)
-    ).rejects.toThrow(RoomOperationError);
+    await expect(createRoom(client, "spyfall", "Alice", null)).rejects.toThrow(
+      RoomOperationError
+    );
     await expect(
       createRoom(client, "spyfall", "Alice", null)
     ).rejects.toMatchObject({ code: "CREATE_FAILED" });
@@ -331,7 +331,11 @@ describe("joinRoom", () => {
               // count query
               return {
                 eq: () =>
-                  Promise.resolve({ count: playerCount, data: null, error: null }),
+                  Promise.resolve({
+                    count: playerCount,
+                    data: null,
+                    error: null,
+                  }),
               };
             }
             selectCallCount++;
@@ -366,31 +370,42 @@ describe("joinRoom", () => {
   });
 
   it("throws ROOM_NOT_FOUND when room does not exist", async () => {
-    const client = createJoinClient({ room: null, roomError: { code: "PGRST116" } });
-    await expect(joinRoom(client, "XXXXXX", "Bob", null)).rejects.toMatchObject({
-      code: "ROOM_NOT_FOUND",
+    const client = createJoinClient({
+      room: null,
+      roomError: { code: "PGRST116" },
     });
+    await expect(joinRoom(client, "XXXXXX", "Bob", null)).rejects.toMatchObject(
+      {
+        code: "ROOM_NOT_FOUND",
+      }
+    );
   });
 
   it("throws ROOM_NOT_WAITING when game already started", async () => {
     const client = createJoinClient({ room: makeRoom({ status: "playing" }) });
-    await expect(joinRoom(client, "ABC123", "Bob", null)).rejects.toMatchObject({
-      code: "ROOM_NOT_WAITING",
-    });
+    await expect(joinRoom(client, "ABC123", "Bob", null)).rejects.toMatchObject(
+      {
+        code: "ROOM_NOT_WAITING",
+      }
+    );
   });
 
   it("throws ROOM_FULL when at max capacity", async () => {
     const client = createJoinClient({ playerCount: 12 });
-    await expect(joinRoom(client, "ABC123", "Bob", null)).rejects.toMatchObject({
-      code: "ROOM_FULL",
-    });
+    await expect(joinRoom(client, "ABC123", "Bob", null)).rejects.toMatchObject(
+      {
+        code: "ROOM_FULL",
+      }
+    );
   });
 
   it("throws NICKNAME_TAKEN when nickname exists (case-insensitive)", async () => {
     const client = createJoinClient({
       existingPlayers: [{ id: "existing-player" }],
     });
-    await expect(joinRoom(client, "ABC123", "Alice", null)).rejects.toMatchObject({
+    await expect(
+      joinRoom(client, "ABC123", "Alice", null)
+    ).rejects.toMatchObject({
       code: "NICKNAME_TAKEN",
     });
   });
@@ -400,9 +415,11 @@ describe("joinRoom", () => {
       insertedPlayer: null,
       insertError: { message: "failed" },
     });
-    await expect(joinRoom(client, "ABC123", "Bob", null)).rejects.toMatchObject({
-      code: "CREATE_FAILED",
-    });
+    await expect(joinRoom(client, "ABC123", "Bob", null)).rejects.toMatchObject(
+      {
+        code: "CREATE_FAILED",
+      }
+    );
   });
 
   it("converts room code to uppercase", async () => {
@@ -427,7 +444,10 @@ describe("joinRoom", () => {
         return {
           select: (_cols: string, opts?: Record<string, unknown>) => {
             if (opts?.head) {
-              return { eq: () => Promise.resolve({ count: 1, data: null, error: null }) };
+              return {
+                eq: () =>
+                  Promise.resolve({ count: 1, data: null, error: null }),
+              };
             }
             return {
               eq: () => ({
@@ -471,7 +491,8 @@ describe("getRoom", () => {
       from: () => ({
         select: () => ({
           eq: () => ({
-            single: () => Promise.resolve({ data: null, error: { code: "PGRST116" } }),
+            single: () =>
+              Promise.resolve({ data: null, error: { code: "PGRST116" } }),
           }),
         }),
       }),
@@ -485,7 +506,10 @@ describe("getRoom", () => {
 describe("getRoomWithPlayers", () => {
   it("returns room with players", async () => {
     const room = makeRoom();
-    const players = [makePlayer(), makePlayer({ id: "player-2", nickname: "Bob" })];
+    const players = [
+      makePlayer(),
+      makePlayer({ id: "player-2", nickname: "Bob" }),
+    ];
 
     const client = {
       from: (table: string) => {
@@ -519,7 +543,8 @@ describe("getRoomWithPlayers", () => {
       from: () => ({
         select: () => ({
           eq: () => ({
-            single: () => Promise.resolve({ data: null, error: { code: "PGRST116" } }),
+            single: () =>
+              Promise.resolve({ data: null, error: { code: "PGRST116" } }),
           }),
         }),
       }),

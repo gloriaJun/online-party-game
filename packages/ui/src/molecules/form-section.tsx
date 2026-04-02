@@ -18,11 +18,9 @@ export function FormSection({
     <Card className={cn("shadow-sm", className)}>
       <CardContent className="p-4">
         <div className="mb-4 text-center">
-          <h3 className="font-semibold leading-none tracking-tight">
-            {title}
-          </h3>
+          <h3 className="leading-none font-semibold tracking-tight">{title}</h3>
           {description && (
-            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+            <p className="text-muted-foreground mt-1 text-sm">{description}</p>
           )}
         </div>
         {children}

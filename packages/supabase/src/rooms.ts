@@ -95,7 +95,8 @@ export async function joinRoom(
 
   if (roomError || !room) throw new RoomOperationError("ROOM_NOT_FOUND");
 
-  if (room.status !== "waiting") throw new RoomOperationError("ROOM_NOT_WAITING");
+  if (room.status !== "waiting")
+    throw new RoomOperationError("ROOM_NOT_WAITING");
 
   const { count } = await client
     .from("players")

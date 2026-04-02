@@ -31,13 +31,13 @@ Each game exists as an independent Next.js app, with Dashboard handling unified 
 
 ### Packages
 
-| Package | Description |
-|---------|-------------|
-| `packages/game-common` | Shared game utilities (timer, voting, room code generation) |
-| `packages/supabase` | Supabase client and Realtime (Broadcast/Presence) utilities |
-| `packages/ui` | Shared UI components (shadcn/ui + Tailwind CSS) |
-| `packages/eslint-config` | Shared ESLint configurations |
-| `packages/typescript-config` | Shared TypeScript configurations |
+| Package                      | Description                                                 |
+| ---------------------------- | ----------------------------------------------------------- |
+| `packages/game-common`       | Shared game utilities (timer, voting, room code generation) |
+| `packages/supabase`          | Supabase client and Realtime (Broadcast/Presence) utilities |
+| `packages/ui`                | Shared UI components (shadcn/ui + Tailwind CSS)             |
+| `packages/eslint-config`     | Shared ESLint configurations                                |
+| `packages/typescript-config` | Shared TypeScript configurations                            |
 
 ## Project Structure
 

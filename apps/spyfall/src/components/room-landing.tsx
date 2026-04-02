@@ -104,7 +104,9 @@ export function RoomLanding() {
           disabled={!hasNickname || isPending}
           onClick={handleCreateRoom}
         >
-          {isPending ? t("landing.createRoom.loading") : t("landing.createRoom.submit")}
+          {isPending
+            ? t("landing.createRoom.loading")
+            : t("landing.createRoom.submit")}
         </Button>
       </FormSection>
 
@@ -130,7 +132,9 @@ export function RoomLanding() {
           disabled={!hasNickname || roomCode.length !== 6 || isPending}
           onClick={handleJoinRoom}
         >
-          {isPending ? t("landing.joinRoom.loading") : t("landing.joinRoom.submit")}
+          {isPending
+            ? t("landing.joinRoom.loading")
+            : t("landing.joinRoom.submit")}
         </Button>
       </FormSection>
     </Card>

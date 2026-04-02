@@ -62,14 +62,14 @@ public.game_sessions            -- shared
 
 ### Comparison
 
-| Aspect | Option A: Prefix | Option B: Schema Separation |
-| --- | --- | --- |
-| Table structure | `public.[game]_locations` | `[game].locations` |
-| Isolation level | Logical (naming convention) | Physical (PostgreSQL schema) |
-| Access control | Table-level RLS | Schema-level permissions + RLS |
-| Supabase compatibility | Default config, no changes | Requires `db.schemas` config |
-| Complexity | Low | Medium |
-| Migration effort | Maintain prefix consistency | Schema creation + table creation |
+| Aspect                 | Option A: Prefix            | Option B: Schema Separation      |
+| ---------------------- | --------------------------- | -------------------------------- |
+| Table structure        | `public.[game]_locations`   | `[game].locations`               |
+| Isolation level        | Logical (naming convention) | Physical (PostgreSQL schema)     |
+| Access control         | Table-level RLS             | Schema-level permissions + RLS   |
+| Supabase compatibility | Default config, no changes  | Requires `db.schemas` config     |
+| Complexity             | Low                         | Medium                           |
+| Migration effort       | Maintain prefix consistency | Schema creation + table creation |
 
 **Migration trigger**: Consider switching to Option B when the project has 5+ games or when separate teams manage different games independently.
 
@@ -79,40 +79,40 @@ Common tables used by all games.
 
 ### rooms
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique room ID |
-| code | varchar(6) | Join code (uppercase alphanumeric) |
-| game_type | varchar | Game type identifier (`spyfall`, ...) |
-| status | varchar | Room status (`waiting`, `playing`, `finished`) |
-| host_player_id | uuid (FK) | Reference to host player |
-| max_players | int | Maximum player count |
-| created_at | timestamptz | Creation timestamp |
-| updated_at | timestamptz | Last update timestamp |
+| Column         | Type        | Description                                    |
+| -------------- | ----------- | ---------------------------------------------- |
+| id             | uuid (PK)   | Unique room ID                                 |
+| code           | varchar(6)  | Join code (uppercase alphanumeric)             |
+| game_type      | varchar     | Game type identifier (`spyfall`, ...)          |
+| status         | varchar     | Room status (`waiting`, `playing`, `finished`) |
+| host_player_id | uuid (FK)   | Reference to host player                       |
+| max_players    | int         | Maximum player count                           |
+| created_at     | timestamptz | Creation timestamp                             |
+| updated_at     | timestamptz | Last update timestamp                          |
 
 ### players
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique player ID |
-| room_id | uuid (FK) | Reference to room |
-| nickname | varchar | Display name |
-| is_host | boolean | Whether this player is the host |
-| is_connected | boolean | Connection status |
-| user_id | uuid (nullable) | Authenticated user reference (for future login integration) |
-| created_at | timestamptz | Join timestamp |
+| Column       | Type            | Description                                                 |
+| ------------ | --------------- | ----------------------------------------------------------- |
+| id           | uuid (PK)       | Unique player ID                                            |
+| room_id      | uuid (FK)       | Reference to room                                           |
+| nickname     | varchar         | Display name                                                |
+| is_host      | boolean         | Whether this player is the host                             |
+| is_connected | boolean         | Connection status                                           |
+| user_id      | uuid (nullable) | Authenticated user reference (for future login integration) |
+| created_at   | timestamptz     | Join timestamp                                              |
 
 ### game_sessions
 
-| Column | Type | Description |
-| --- | --- | --- |
-| id | uuid (PK) | Unique session ID |
-| room_id | uuid (FK) | Reference to room |
-| game_type | varchar | Game type identifier |
-| round_number | int | Round number within the room |
-| started_at | timestamptz | Round start time |
-| ended_at | timestamptz (nullable) | Round end time |
-| result | jsonb (nullable) | Game result data (structure varies by game) |
+| Column       | Type                   | Description                                 |
+| ------------ | ---------------------- | ------------------------------------------- |
+| id           | uuid (PK)              | Unique session ID                           |
+| room_id      | uuid (FK)              | Reference to room                           |
+| game_type    | varchar                | Game type identifier                        |
+| round_number | int                    | Round number within the room                |
+| started_at   | timestamptz            | Round start time                            |
+| ended_at     | timestamptz (nullable) | Round end time                              |
+| result       | jsonb (nullable)       | Game result data (structure varies by game) |
 
 ## Future: Authentication
 
@@ -124,10 +124,10 @@ When Supabase Auth is integrated via the Dashboard app:
 
 ## Realtime Strategy
 
-| Feature | Method | Channel |
-| --- | --- | --- |
+| Feature                           | Method    | Channel           |
+| --------------------------------- | --------- | ----------------- |
 | Game events (votes, timer, state) | Broadcast | `room:{roomCode}` |
-| Player connection status | Presence | `room:{roomCode}` |
+| Player connection status          | Presence  | `room:{roomCode}` |
 
 All game apps connect to Realtime through the shared client in `@repo/supabase`.
 

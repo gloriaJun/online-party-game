@@ -27,13 +27,13 @@ export function GameLayout({
 }: GameLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="border-border bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40 border-b backdrop-blur">
         <div className="flex h-14 items-center gap-3 px-4 md:px-6">
           {/* Mobile: Back button (visible only on mobile) */}
           {backHref && (
             <Link
               href={backHref}
-              className="inline-flex items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground md:hidden"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center justify-center rounded-md transition-colors md:hidden"
               aria-label="Back"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -44,7 +44,7 @@ export function GameLayout({
           {homeHref && (
             <Link
               href={homeHref}
-              className="inline-flex items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center justify-center rounded-md transition-colors"
               aria-label="Home"
             >
               <House className="h-5 w-5" />
@@ -67,9 +67,7 @@ export function GameLayout({
       </header>
 
       <div className="flex flex-1">
-        {sidebar && (
-          <aside className="border-r border-border">{sidebar}</aside>
-        )}
+        {sidebar && <aside className="border-border border-r">{sidebar}</aside>}
         <main className={cn("flex-1 p-4 md:p-6", className)}>{children}</main>
       </div>
     </div>

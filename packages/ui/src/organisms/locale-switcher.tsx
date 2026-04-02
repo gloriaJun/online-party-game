@@ -48,7 +48,7 @@ export const LocaleSwitcher = ({
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex h-9 items-center gap-1.5 rounded-md border border-border bg-background px-2.5 text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        className="border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground inline-flex h-9 items-center gap-1.5 rounded-md border px-2.5 text-sm transition-colors"
         aria-label="Change language"
         aria-expanded={open}
       >
@@ -59,7 +59,7 @@ export const LocaleSwitcher = ({
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-1 min-w-[120px] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-md">
+        <div className="border-border bg-popover absolute top-full right-0 z-50 mt-1 min-w-[120px] overflow-hidden rounded-md border p-1 shadow-md">
           {locales.map((locale) => (
             <button
               key={locale.value}
@@ -71,7 +71,7 @@ export const LocaleSwitcher = ({
               }}
               className={`flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors ${
                 locale.value === currentLocale
-                  ? "bg-accent font-medium text-accent-foreground"
+                  ? "bg-accent text-accent-foreground font-medium"
                   : "text-popover-foreground hover:bg-accent hover:text-accent-foreground"
               }`}
             >

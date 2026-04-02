@@ -12,8 +12,8 @@ type Story = StoryObj<typeof meta>;
 export const Horizontal: Story = {
   render: () => (
     <div className="space-y-1">
-      <h4 className="text-sm font-medium leading-none">Section Title</h4>
-      <p className="text-sm text-muted-foreground">Section description.</p>
+      <h4 className="text-sm leading-none font-medium">Section Title</h4>
+      <p className="text-muted-foreground text-sm">Section description.</p>
       <Separator className="my-4" />
       <p className="text-sm">Content below separator.</p>
     </div>

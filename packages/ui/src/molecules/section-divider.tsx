@@ -14,7 +14,7 @@ export function SectionDivider({ label, className }: SectionDividerProps) {
   return (
     <div className={cn("flex items-center gap-4", className)}>
       <Separator className="flex-1" />
-      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-muted-foreground text-sm">{label}</span>
       <Separator className="flex-1" />
     </div>
   );

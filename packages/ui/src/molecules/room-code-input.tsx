@@ -38,9 +38,9 @@ export function RoomCodeInput({
         value={value}
         onChange={handleChange}
         maxLength={6}
-        className="font-mono text-lg tracking-widest text-center uppercase"
+        className="text-center font-mono text-lg tracking-widest uppercase"
       />
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && <p className="text-destructive text-sm">{error}</p>}
     </div>
   );
 }
